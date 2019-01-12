@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        ">
+
+        <!-- 自动扫描com.zking包下所有类中的注解 -->
+        <context:component-scan base-package="com.zking" />
+        <!-- 处理静态资源文件，303校验等等（标配，必须写） -->
+        <mvc:annotation-driven />
+        <mvc:default-servlet-handler/>
+
+        <!-- 加载db.properties -->
+        <context:property-placeholder location="classpath*:db.properties"></context:property-placeholder>
+        <!-- 配置druid数据源 -->
+        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+            <!-- 数据库基本信息配置 -->
+            <property name="driverClassName" value="${jdbc.driver}" />
+            <property name="url" value="${jdbc.url}" />
+            <property name="username" value="${jdbc.name}" />
+            <property name="password" value="${jdbc.pwd}" />
+            <property name="filters" value="${jdbc.filters}" />
+            <!-- 最大并发连接数 -->
+            <property name="maxActive" value="${pool.maxActive}" />
+            <!-- 初始化连接数量 -->
+            <property name="initialSize" value="${pool.initSize}" />
+            <!-- 最小空闲连接数 -->
+            <property name="minIdle" value="${pool.minIdle}" />
+            <!-- 配置获取连接等待超时的时间 -->
+            <property name="maxWait" value="${pool.maxWait}" />
+            <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+            <property name="timeBetweenEvictionRunsMillis" value="${pool.timeBetweenEvictionRunsMillis}" />
+            <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+            <property name="minEvictableIdleTimeMillis" value="${pool.minEvictableIdleTimeMillis}" />
+            <property name="validationQuery" value="${pool.validationQuery}" />
+            <property name="testWhileIdle" value="${pool.testWhileIdle}" />
+            <property name="testOnBorrow" value="${pool.testOnBorrow}" />
+            <property name="testOnReturn" value="${pool.testOnReturn}" />
+            <property name="maxOpenPreparedStatements" value="${pool.maxOpenPreparedStatements}" />
+            <!-- 打开removeAbandoned功能 -->
+            <property name="removeAbandoned" value="${pool.removeAbandoned}" />
+            <!-- 1800秒，也就是30分钟 -->
+            <property name="removeAbandonedTimeout" value="${pool.removeAbandonedTimeout}" />
+            <!-- 关闭abanded连接时输出错误日志 -->
+            <property name="logAbandoned" value="${pool.logAbandoned}" />
+        </bean>
+
+        <!--配置Mybatis中的SqlSessionFactory-->
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+            <!--引入数据源-->
+            <property name="dataSource" ref="dataSource"></property>
+            <!--加载所有映射文件-->
+            <!--<property name="mapperLocations" value="classpath:com/zking/pojo/*.xml"></property>-->
+            <!--typeAliasesPackage对应实体类所在的包，这个时候会自动取包名作为别名-->
+            <property name="typeAliasesPackage" value="com.zking.pojo"></property>
+        </bean>
+
+        <!-- 扫描Mapper：向dao层映射SqlSessionFactory -->
+        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+            <!--将sqlSessionFactory注入dao包的类中，dao包中的类直接使用sqlSessionFactory -->
+            <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+            <property name="basePackage" value="com.zking.dao"></property>
+        </bean>
+
+        <!-- 开启事务：Spring事务管理 -->
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource" />
+        </bean>
+        <!-- 可通过注解控制事务 -->
+        <tx:annotation-driven transaction-manager="transactionManager" />
+
+
+        <!--Redis配置-->
+        <!-- 获取Jedis类 -->
+        <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+            <constructor-arg name="host" value="119.29.219.115"></constructor-arg>
+            <constructor-arg name="port" value="6379"></constructor-arg>
+        </bean>
+        <!-- 配置redis缓存 -->
+        <bean id="redisCache" class="com.zking.redis.RedisCache">
+            <property name="jedisPool" ref="jedisPool"></property>
+        </bean>
+
+
+        <!--        Shiro配置         -->
+            <!--1.shiro与Spring整合-->
+        <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+            <!--2.关闻SecurityManager-->
+            <property name="securityManager" ref="securityManager" />
+                <!--使用shiro的内置过滤器拦截资源-->
+                <property name="filterChainDefinitions" >
+                    <value>
+                        /admin/login.jsp=authc
+                        /admin/add.jsp=perms[add]
+                        /admin/del.jsp=perms[del]
+                        /admin/upda.jsp=perms[upda]
+                        /admin/select.jsp=perms[select]
+                        /**=anon
+                    </value>
+                </property>
+                <!--2.修改shiro的默认登录-->
+                <property name="loginUrl" value="/admin/login.jsp" />
+                <!--配置未授权提示页面-->
+                <property name="unauthorizedUrl" value="/admin/unAuth.jsp" />
+        </bean>
+            <!--3.配置securityManger安全管理器-->
+        <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+            <!--4.关联realm（自定义的一个MyRealm类）-->
+            <property name="realm" ref="myRealm" />
+        </bean>
+            <!--5.配置自定义MyRealm类，见后面MyRealm代码-->
+        <bean id="myRealm" class="com.zking.shiro.MyRealm"></bean>
+
+
+
+</beans>

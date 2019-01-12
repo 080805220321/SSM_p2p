@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.dao.UserEarningsMapper">
+  <resultMap id="BaseResultMap" type="com.zking.pojo.UserEarnings">
+    <result column="borrowMoney_id" jdbcType="VARCHAR" property="borrowmoneyId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_ids" jdbcType="INTEGER" property="userIds" />
+    <result column="earnings_money" jdbcType="DECIMAL" property="earningsMoney" />
+    <result column="earnings_earnings" jdbcType="DECIMAL" property="earningsEarnings" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zking.pojo.UserEarnings">
+    insert into tb_userearnings (borrowMoney_id, user_id, user_ids, 
+      earnings_money, earnings_earnings)
+    values (#{borrowmoneyId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userIds,jdbcType=INTEGER}, 
+      #{earningsMoney,jdbcType=DECIMAL}, #{earningsEarnings,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.pojo.UserEarnings">
+    insert into tb_userearnings
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="borrowmoneyId != null">
+        borrowMoney_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userIds != null">
+        user_ids,
+      </if>
+      <if test="earningsMoney != null">
+        earnings_money,
+      </if>
+      <if test="earningsEarnings != null">
+        earnings_earnings,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="borrowmoneyId != null">
+        #{borrowmoneyId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userIds != null">
+        #{userIds,jdbcType=INTEGER},
+      </if>
+      <if test="earningsMoney != null">
+        #{earningsMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="earningsEarnings != null">
+        #{earningsEarnings,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

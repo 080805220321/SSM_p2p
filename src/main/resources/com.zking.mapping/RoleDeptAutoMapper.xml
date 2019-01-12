@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.dao.RoleDeptAutoMapper">
+  <resultMap id="BaseResultMap" type="com.zking.pojo.RoleDeptAuto">
+    <result column="auto_id" jdbcType="INTEGER" property="autoId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zking.pojo.RoleDeptAuto">
+    insert into tb_role_dept_auto (auto_id, role_id, dept_id
+      )
+    values (#{autoId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.pojo.RoleDeptAuto">
+    insert into tb_role_dept_auto
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="autoId != null">
+        auto_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="deptId != null">
+        dept_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="autoId != null">
+        #{autoId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

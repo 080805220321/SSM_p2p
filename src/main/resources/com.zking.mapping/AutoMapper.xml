@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.dao.AutoMapper">
+  <resultMap id="BaseResultMap" type="com.zking.pojo.Auto">
+    <id column="auto_id" jdbcType="INTEGER" property="autoId" />
+    <result column="auto_code" jdbcType="VARCHAR" property="autoCode" />
+    <result column="auto_name" jdbcType="VARCHAR" property="autoName" />
+    <result column="auto_url" jdbcType="VARCHAR" property="autoUrl" />
+    <result column="auto_type" jdbcType="INTEGER" property="autoType" />
+    <result column="auto_state" jdbcType="INTEGER" property="autoState" />
+    <result column="auto_remark" jdbcType="VARCHAR" property="autoRemark" />
+    <result column="auto_do" jdbcType="VARCHAR" property="autoDo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    auto_id, auto_code, auto_name, auto_url, auto_type, auto_state, auto_remark, auto_do
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_auto
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_auto
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.pojo.Auto">
+    insert into tb_auto (auto_id, auto_code, auto_name, 
+      auto_url, auto_type, auto_state, 
+      auto_remark, auto_do)
+    values (#{autoId,jdbcType=INTEGER}, #{autoCode,jdbcType=VARCHAR}, #{autoName,jdbcType=VARCHAR}, 
+      #{autoUrl,jdbcType=VARCHAR}, #{autoType,jdbcType=INTEGER}, #{autoState,jdbcType=INTEGER}, 
+      #{autoRemark,jdbcType=VARCHAR}, #{autoDo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.pojo.Auto">
+    insert into tb_auto
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="autoId != null">
+        auto_id,
+      </if>
+      <if test="autoCode != null">
+        auto_code,
+      </if>
+      <if test="autoName != null">
+        auto_name,
+      </if>
+      <if test="autoUrl != null">
+        auto_url,
+      </if>
+      <if test="autoType != null">
+        auto_type,
+      </if>
+      <if test="autoState != null">
+        auto_state,
+      </if>
+      <if test="autoRemark != null">
+        auto_remark,
+      </if>
+      <if test="autoDo != null">
+        auto_do,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="autoId != null">
+        #{autoId,jdbcType=INTEGER},
+      </if>
+      <if test="autoCode != null">
+        #{autoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="autoName != null">
+        #{autoName,jdbcType=VARCHAR},
+      </if>
+      <if test="autoUrl != null">
+        #{autoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="autoType != null">
+        #{autoType,jdbcType=INTEGER},
+      </if>
+      <if test="autoState != null">
+        #{autoState,jdbcType=INTEGER},
+      </if>
+      <if test="autoRemark != null">
+        #{autoRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="autoDo != null">
+        #{autoDo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.pojo.Auto">
+    update tb_auto
+    <set>
+      <if test="autoCode != null">
+        auto_code = #{autoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="autoName != null">
+        auto_name = #{autoName,jdbcType=VARCHAR},
+      </if>
+      <if test="autoUrl != null">
+        auto_url = #{autoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="autoType != null">
+        auto_type = #{autoType,jdbcType=INTEGER},
+      </if>
+      <if test="autoState != null">
+        auto_state = #{autoState,jdbcType=INTEGER},
+      </if>
+      <if test="autoRemark != null">
+        auto_remark = #{autoRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="autoDo != null">
+        auto_do = #{autoDo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.pojo.Auto">
+    update tb_auto
+    set auto_code = #{autoCode,jdbcType=VARCHAR},
+      auto_name = #{autoName,jdbcType=VARCHAR},
+      auto_url = #{autoUrl,jdbcType=VARCHAR},
+      auto_type = #{autoType,jdbcType=INTEGER},
+      auto_state = #{autoState,jdbcType=INTEGER},
+      auto_remark = #{autoRemark,jdbcType=VARCHAR},
+      auto_do = #{autoDo,jdbcType=VARCHAR}
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+</mapper>

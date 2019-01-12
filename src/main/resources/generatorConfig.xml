@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE generatorConfiguration
+    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+  <generatorConfiguration>
+     <!--数据库驱动-->
+      <classPathEntry    location="D:/jar/DBjdbc/mysql-connector-java-5.1.7-bin.jar"/>
+      <context id="DB2Tables"    targetRuntime="MyBatis3">
+          <commentGenerator>
+             <property name="suppressDate" value="true"/>
+             <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+         <!--数据库链接地址账号密码-->
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql:///p2p" userId="root" password="123">
+         </jdbcConnection>
+         <javaTypeResolver>
+             <property name="forceBigDecimals" value="false"/>
+         </javaTypeResolver>
+         <!--生成Model类存放位置 targetproject存放的是相对路径-->
+         <javaModelGenerator targetPackage="com.zking.pojo" targetProject="SSM_p2p\src\main\java">
+             <property name="enableSubPackages" value="true"/>
+             <property name="trimStrings" value="true"/>
+         </javaModelGenerator>
+
+         <!--生成映射文件存放位置-->
+         <sqlMapGenerator targetPackage="com.zking.mapping" targetProject="SSM_p2p\src\main\resources">
+             <property name="enableSubPackages" value="true"/>
+         </sqlMapGenerator>
+         <!--生成Dao类存放位置-->
+          <javaClientGenerator type="XMLMAPPER" targetPackage="com.zking.dao" targetProject="SSM_p2p\src\main\java">
+             <property name="enableSubPackages" value="false"/>
+         </javaClientGenerator>
+    <!--生成对应表及类名-->
+          <table tableName="tb_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_userMessage" domainObjectName="UserMessage" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_role_dept_auto" domainObjectName="RoleDeptAuto" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_auto" domainObjectName="Auto" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_dept" domainObjectName="Dept" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_staff" domainObjectName="Staff" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_userEarnings" domainObjectName="UserEarnings" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_userBorrowMoney" domainObjectName="UserBorrowMoney" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_userOverdue" domainObjectName="UserOverdue" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_userDeal" domainObjectName="UserDeal" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_userInvest" domainObjectName="UserInvest" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+          <table tableName="tb_userLiabilities" domainObjectName="UserLiabilities" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+      </context>
+</generatorConfiguration>
