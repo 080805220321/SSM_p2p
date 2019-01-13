@@ -12,6 +12,7 @@ public class TestRedis {
         //连接Redis（119.29.219.115为服务器IP地址，6379为redis的端口）
         Jedis jedis = new Jedis("119.29.219.115", 6379);
 
+
         //获取所有的key
         Set<String> keys = jedis.keys("*");
 
