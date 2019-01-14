@@ -12,6 +12,7 @@
 <script type="text/javascript" src="script/jquery.min.js"></script>
 <script type="text/javascript" src="script/common.js"></script>
 <script src="script/login.js" type="text/javascript"></script>
+
 </head>
 <body>
 <header>
@@ -70,10 +71,7 @@
         <li><span class="dis">确认密码:</span>
           <input type="password" name="repeatPassword" id="repeatPassword" class="input _repeatPassword" maxlength="24" tabindex="1">
           <span id="repeatPasswordAlt" data-info="请再次输入密码">请再次输入密码</span></li>
-        <li> <span class="dis">验证码:</span>
-          <input type="text" id="jpgVerify" class="input input1 _yanzhengma" name="yzm" maxlength="4" tabindex="1">
-          <img src="images/code.jpg" alt="验证码" style="cursor:pointer;" id="yzm" class="valign"> <a class="look blue _changeCapcherButton" id="look" href="javascript:void(0);">看不清？换一张</a> <span class="info" id="jpgVerifys" data-info="请输入手机验证码"></span> </li>
-        <li class="telNumber"> <span class="dis">手机号码:</span>
+       <li class="telNumber"> <span class="dis">手机号码:</span>
           <input type="text" class="input _phoneNum" id="phone" name="phone" tabindex="1" maxlength="11">
           <a href="javascript:void(0);" class="button radius1 _getkey" id="sendPhone">获取验证码</a> <span id="phoneJy" data-info="请输入您的常用电话">请输入您的常用电话</span></li>
         <li class="telNumber"><span class="dis">短信验证码:</span>
@@ -84,8 +82,8 @@
           <span class="_invist_msg">请填写推荐人账户名，如无推荐人请留空</span> </li>
         <li class="agree">
           <input name="protocol" id="protocol" type="checkbox" value="" checked="checked">
-          我同意《<a href="#" target="_black">亿人宝注册协议</a>》 <span id="protocolAlt" data-info="请查看协议">请查看协议</span></li>
-        <li class="btn"><a href="javascript:void(0);" class="radius1 _ajaxSubmit">下一步</a></li>
+          我同意《<a href="#" target="_black">十七金融注册协议</a>》 <span id="protocolAlt" data-info="请查看协议">请查看协议</span></li>
+        <li class="btn"><a href="javascript:void(0);" class="radius1 _ajaxSubmit">立即注册</a></li>
       </ul>
     </div>
   </div>
