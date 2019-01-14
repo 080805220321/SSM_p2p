@@ -1,5 +1,6 @@
 package com.zking.pojo;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class UserMessage {
@@ -121,5 +122,23 @@ public class UserMessage {
 
     public void setUsermessageTruename(byte[] usermessageTruename) {
         this.usermessageTruename = usermessageTruename;
+    }
+
+    @Override
+    public String toString() {
+        return "UserMessage{" +
+                "userId=" + userId +
+                ", usermessageName='" + usermessageName + '\'' +
+                ", usermessageHead='" + usermessageHead + '\'' +
+                ", usermessageDate=" + usermessageDate +
+                ", usermessageCard='" + usermessageCard + '\'' +
+                ", usermessageState=" + usermessageState +
+                ", usermessageNature='" + usermessageNature + '\'' +
+                ", usermessageTrade='" + usermessageTrade + '\'' +
+                ", usermessageIncome='" + usermessageIncome + '\'' +
+                ", usermessageLiabilities='" + usermessageLiabilities + '\'' +
+                ", usermessageHome='" + usermessageHome + '\'' +
+                ", usermessageTruename=" + Arrays.toString(usermessageTruename) +
+                '}';
     }
 }
