@@ -74,10 +74,10 @@ public class UserController {
             //将打包好的用户名和密码传给MyRealm认证
             subject.login(token);
             //如果认证通过，获取Principal，主体的用户名
-            String dbName = (String)subject.getPrincipal();
+            User user = (User) subject.getPrincipal();
 
             //把用户信息存在session
-            req.getSession().setAttribute("uname",dbName);
+            req.getSession().setAttribute("user",user);
 
             //如果没有异常，就登录成功访问index.jsp
             return "redirect:/admin/index.jsp";//重定向
