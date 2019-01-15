@@ -1,10 +1,6 @@
 package com.zking.pojo;
-/**
- * @author WSJ
- * 用户表
- */
-public class
-User {
+
+public class User {
     private Integer userId;
 
     private String userPhone;
@@ -43,15 +39,5 @@ User {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail == null ? null : userEmail.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userPhone='" + userPhone + '\'' +
-                ", userPwd='" + userPwd + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                '}';
     }
 }
