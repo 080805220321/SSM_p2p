@@ -33,4 +33,13 @@ public class RoleDeptAuto {
     public void setDeptId(Integer deptId) {
         this.deptId = deptId;
     }
+
+    @Override
+    public String toString() {
+        return "RoleDeptAuto{" +
+                "autoId=" + autoId +
+                ", roleId=" + roleId +
+                ", deptId=" + deptId +
+                '}';
+    }
 }
