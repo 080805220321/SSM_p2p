@@ -11,7 +11,6 @@
 						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         ">
-
         <!-- 自动扫描com.zking包下所有类中的注解 -->
         <context:component-scan base-package="com.zking" />
         <!-- 处理静态资源文件，303校验等等（标配，必须写） -->

@@ -50,4 +50,15 @@ public class UserEarnings {
     public void setEarningsEarnings(Long earningsEarnings) {
         this.earningsEarnings = earningsEarnings;
     }
+
+    @Override
+    public String toString() {
+        return "UserEarnings{" +
+                "borrowmoneyId='" + borrowmoneyId + '\'' +
+                ", userId=" + userId +
+                ", userIds=" + userIds +
+                ", earningsMoney=" + earningsMoney +
+                ", earningsEarnings=" + earningsEarnings +
+                '}';
+    }
 }

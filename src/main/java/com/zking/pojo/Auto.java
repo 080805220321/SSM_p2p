@@ -84,4 +84,18 @@ public class Auto {
     public void setAutoDo(String autoDo) {
         this.autoDo = autoDo == null ? null : autoDo.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Auto{" +
+                "autoId=" + autoId +
+                ", autoCode='" + autoCode + '\'' +
+                ", autoName='" + autoName + '\'' +
+                ", autoUrl='" + autoUrl + '\'' +
+                ", autoType=" + autoType +
+                ", autoState=" + autoState +
+                ", autoRemark='" + autoRemark + '\'' +
+                ", autoDo='" + autoDo + '\'' +
+                '}';
+    }
 }
