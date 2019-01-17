@@ -63,4 +63,16 @@ public class TiXian {
     public void setTxState(Integer txState) {
         this.txState = txState;
     }
+
+    @Override
+    public String toString() {
+        return "TiXian{" +
+                "txId=" + txId +
+                ", userId=" + userId +
+                ", txMoney=" + txMoney +
+                ", userbankId=" + userbankId +
+                ", txDate=" + txDate +
+                ", txState=" + txState +
+                '}';
+    }
 }

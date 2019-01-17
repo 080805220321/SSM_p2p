@@ -40,4 +40,14 @@ public class Role {
     public void setRoleState(Integer roleState) {
         this.roleState = roleState;
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                ", roleDescribe='" + roleDescribe + '\'' +
+                ", roleState=" + roleState +
+                '}';
+    }
 }
