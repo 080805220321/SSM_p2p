@@ -98,17 +98,13 @@
                 <property name="filterChainDefinitions" >
                     <value>
                         /admin/login.jsp=authc
-                        /admin/add.jsp=perms[add]
-                        /admin/del.jsp=perms[del]
-                        /admin/upda.jsp=perms[upda]
-                        /admin/select.jsp=perms[select]
                         /**=anon
                     </value>
                 </property>
                 <!--2.修改shiro的默认登录-->
                 <property name="loginUrl" value="/admin/login.jsp" />
                 <!--配置未授权提示页面-->
-                <property name="unauthorizedUrl" value="/admin/unAuth.jsp" />
+                <property name="unauthorizedUrl" value="/admin/404.jsp" />
         </bean>
             <!--3.配置securityManger安全管理器-->
         <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
