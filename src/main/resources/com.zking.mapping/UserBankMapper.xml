@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.dao.UserBankMapper">
+  <resultMap id="BaseResultMap" type="com.zking.pojo.UserBank">
+    <result column="userbank_id" jdbcType="INTEGER" property="userbankId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="userbank_card" jdbcType="VARCHAR" property="userbankCard" />
+    <result column="userbank_name" jdbcType="VARCHAR" property="userbankName" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zking.pojo.UserBank">
+    insert into tb_userbank (userbank_id, user_id, userbank_card, 
+      userbank_name)
+    values (#{userbankId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userbankCard,jdbcType=VARCHAR}, 
+      #{userbankName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.pojo.UserBank">
+    insert into tb_userbank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userbankId != null">
+        userbank_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userbankCard != null">
+        userbank_card,
+      </if>
+      <if test="userbankName != null">
+        userbank_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userbankId != null">
+        #{userbankId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userbankCard != null">
+        #{userbankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userbankName != null">
+        #{userbankName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
