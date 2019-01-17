@@ -1,12 +1,13 @@
 package com.zking.pojo;
-/**
- * @author WSJ
- * 角色表
- */
+
 public class Role {
     private Integer roleId;
 
     private String roleName;
+
+    private String roleDescribe;
+
+    private Integer roleState;
 
     public Integer getRoleId() {
         return roleId;
@@ -24,11 +25,19 @@ public class Role {
         this.roleName = roleName == null ? null : roleName.trim();
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "roleId=" + roleId +
-                ", roleName='" + roleName + '\'' +
-                '}';
+    public String getRoleDescribe() {
+        return roleDescribe;
+    }
+
+    public void setRoleDescribe(String roleDescribe) {
+        this.roleDescribe = roleDescribe == null ? null : roleDescribe.trim();
+    }
+
+    public Integer getRoleState() {
+        return roleState;
+    }
+
+    public void setRoleState(Integer roleState) {
+        this.roleState = roleState;
     }
 }

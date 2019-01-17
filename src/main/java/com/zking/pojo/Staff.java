@@ -1,8 +1,5 @@
 package com.zking.pojo;
-/**
- * @author WSJ
- * 员工表
- */
+
 public class Staff {
     private Integer staffId;
 
@@ -62,17 +59,5 @@ public class Staff {
 
     public void setStaffState(Integer staffState) {
         this.staffState = staffState;
-    }
-
-    @Override
-    public String toString() {
-        return "Staff{" +
-                "staffId=" + staffId +
-                ", deptId=" + deptId +
-                ", roleId=" + roleId +
-                ", staffName='" + staffName + '\'' +
-                ", staffPwd='" + staffPwd + '\'' +
-                ", staffState=" + staffState +
-                '}';
     }
 }

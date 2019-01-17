@@ -70,17 +70,4 @@ public class UserLiabilities {
     public void setLiabilitiesInterestmod(Long liabilitiesInterestmod) {
         this.liabilitiesInterestmod = liabilitiesInterestmod;
     }
-
-    @Override
-    public String toString() {
-        return "UserLiabilities{" +
-                "userId=" + userId +
-                ", liabilitiesMoney=" + liabilitiesMoney +
-                ", liabilitiesPrincipal=" + liabilitiesPrincipal +
-                ", liabilitiesInterest=" + liabilitiesInterest +
-                ", liabilitiesMoneymod=" + liabilitiesMoneymod +
-                ", liabilitiesPrincipalmod=" + liabilitiesPrincipalmod +
-                ", liabilitiesInterestmod=" + liabilitiesInterestmod +
-                '}';
-    }
 }

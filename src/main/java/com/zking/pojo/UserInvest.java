@@ -70,17 +70,4 @@ public class UserInvest {
     public void setInvestInterestmod(Long investInterestmod) {
         this.investInterestmod = investInterestmod;
     }
-
-    @Override
-    public String toString() {
-        return "UserInvest{" +
-                "userId=" + userId +
-                ", investMoney=" + investMoney +
-                ", investPrincipal=" + investPrincipal +
-                ", investInterest=" + investInterest +
-                ", investMoneymod=" + investMoneymod +
-                ", investPrincipalmod=" + investPrincipalmod +
-                ", investInterestmod=" + investInterestmod +
-                '}';
-    }
 }

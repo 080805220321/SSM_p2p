@@ -40,14 +40,4 @@ public class UserOverdue {
     public void setOverdueinterest(Long overdueinterest) {
         this.overdueinterest = overdueinterest;
     }
-
-    @Override
-    public String toString() {
-        return "UserOverdue{" +
-                "borrowmoneyId='" + borrowmoneyId + '\'' +
-                ", overduemoney=" + overduemoney +
-                ", overduedate=" + overduedate +
-                ", overdueinterest=" + overdueinterest +
-                '}';
-    }
 }

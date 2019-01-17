@@ -1,8 +1,5 @@
 package com.zking.pojo;
-/**
- * @author WSJ
- * 部门表
- */
+
 public class Dept {
     private Integer deptId;
 
@@ -22,13 +19,5 @@ public class Dept {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName == null ? null : deptName.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "Dept{" +
-                "deptId=" + deptId +
-                ", deptName='" + deptName + '\'' +
-                '}';
     }
 }

@@ -1,8 +1,5 @@
 package com.zking.pojo;
-/**
- * @author WSJ
- * 权限角色部门关系表
- */
+
 public class RoleDeptAuto {
     private Integer autoId;
 
@@ -32,14 +29,5 @@ public class RoleDeptAuto {
 
     public void setDeptId(Integer deptId) {
         this.deptId = deptId;
-    }
-
-    @Override
-    public String toString() {
-        return "RoleDeptAuto{" +
-                "autoId=" + autoId +
-                ", roleId=" + roleId +
-                ", deptId=" + deptId +
-                '}';
     }
 }

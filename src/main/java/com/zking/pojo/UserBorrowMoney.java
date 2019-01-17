@@ -172,27 +172,4 @@ public class UserBorrowMoney {
     public void setBorrowmoneyMoney(Long borrowmoneyMoney) {
         this.borrowmoneyMoney = borrowmoneyMoney;
     }
-
-    @Override
-    public String toString() {
-        return "UserBorrowMoney{" +
-                "borrowmoneyId='" + borrowmoneyId + '\'' +
-                ", borrowmoneySynopsis='" + borrowmoneySynopsis + '\'' +
-                ", borrowmoneyBorrowmoney=" + borrowmoneyBorrowmoney +
-                ", borrowmoneyBorrowdate=" + borrowmoneyBorrowdate +
-                ", borrowmoneyInterestrate='" + borrowmoneyInterestrate + '\'' +
-                ", borrowmoneyUse='" + borrowmoneyUse + '\'' +
-                ", borrowmoneySource='" + borrowmoneySource + '\'' +
-                ", borrowmoneyWay='" + borrowmoneyWay + '\'' +
-                ", borrowmoneyRisk='" + borrowmoneyRisk + '\'' +
-                ", userId=" + userId +
-                ", borrowmoneyInterest=" + borrowmoneyInterest +
-                ", borrowmoneyRaisedate=" + borrowmoneyRaisedate +
-                ", borrowmoneyOrderdate=" + borrowmoneyOrderdate +
-                ", borrowmoneyState=" + borrowmoneyState +
-                ", borrowmoneyRaisemoney=" + borrowmoneyRaisemoney +
-                ", borrowmoneyPlan='" + borrowmoneyPlan + '\'' +
-                ", borrowmoneyMoney=" + borrowmoneyMoney +
-                '}';
-    }
 }
