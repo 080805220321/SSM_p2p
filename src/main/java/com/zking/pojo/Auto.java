@@ -17,6 +17,8 @@ public class Auto {
 
     private String autoDo;
 
+    private Integer autoSuperclass;
+
     public Integer getAutoId() {
         return autoId;
     }
@@ -81,17 +83,11 @@ public class Auto {
         this.autoDo = autoDo == null ? null : autoDo.trim();
     }
 
-    @Override
-    public String toString() {
-        return "Auto{" +
-                "autoId=" + autoId +
-                ", autoCode='" + autoCode + '\'' +
-                ", autoName='" + autoName + '\'' +
-                ", autoUrl='" + autoUrl + '\'' +
-                ", autoType=" + autoType +
-                ", autoState=" + autoState +
-                ", autoRemark='" + autoRemark + '\'' +
-                ", autoDo='" + autoDo + '\'' +
-                '}';
+    public Integer getAutoSuperclass() {
+        return autoSuperclass;
+    }
+
+    public void setAutoSuperclass(Integer autoSuperclass) {
+        this.autoSuperclass = autoSuperclass;
     }
 }

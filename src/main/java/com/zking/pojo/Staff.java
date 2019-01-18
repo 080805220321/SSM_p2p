@@ -3,10 +3,6 @@ package com.zking.pojo;
 public class Staff {
     private Integer staffId;
 
-    private Integer deptId;
-
-    private Integer roleId;
-
     private String staffName;
 
     private String staffPwd;
@@ -19,22 +15,6 @@ public class Staff {
 
     public void setStaffId(Integer staffId) {
         this.staffId = staffId;
-    }
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public String getStaffName() {
@@ -59,17 +39,5 @@ public class Staff {
 
     public void setStaffState(Integer staffState) {
         this.staffState = staffState;
-    }
-
-    @Override
-    public String toString() {
-        return "Staff{" +
-                "staffId=" + staffId +
-                ", deptId=" + deptId +
-                ", roleId=" + roleId +
-                ", staffName='" + staffName + '\'' +
-                ", staffPwd='" + staffPwd + '\'' +
-                ", staffState=" + staffState +
-                '}';
     }
 }
