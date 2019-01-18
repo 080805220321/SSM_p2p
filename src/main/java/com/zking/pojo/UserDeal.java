@@ -40,4 +40,14 @@ public class UserDeal {
     public void setDealLiabilities(Long dealLiabilities) {
         this.dealLiabilities = dealLiabilities;
     }
+
+    @Override
+    public String toString() {
+        return "UserDeal{" +
+                "userId=" + userId +
+                ", dealEarnings=" + dealEarnings +
+                ", dealInvestmoney=" + dealInvestmoney +
+                ", dealLiabilities=" + dealLiabilities +
+                '}';
+    }
 }

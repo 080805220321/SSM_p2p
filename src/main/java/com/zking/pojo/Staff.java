@@ -60,4 +60,16 @@ public class Staff {
     public void setStaffState(Integer staffState) {
         this.staffState = staffState;
     }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "staffId=" + staffId +
+                ", deptId=" + deptId +
+                ", roleId=" + roleId +
+                ", staffName='" + staffName + '\'' +
+                ", staffPwd='" + staffPwd + '\'' +
+                ", staffState=" + staffState +
+                '}';
+    }
 }

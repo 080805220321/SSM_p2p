@@ -40,4 +40,14 @@ public class UserBank {
     public void setUserbankName(String userbankName) {
         this.userbankName = userbankName == null ? null : userbankName.trim();
     }
+
+    @Override
+    public String toString() {
+        return "UserBank{" +
+                "userbankId=" + userbankId +
+                ", userId=" + userId +
+                ", userbankCard='" + userbankCard + '\'' +
+                ", userbankName='" + userbankName + '\'' +
+                '}';
+    }
 }

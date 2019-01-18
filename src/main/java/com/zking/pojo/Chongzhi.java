@@ -42,4 +42,14 @@ public class Chongzhi {
     public void setCzState(Integer czState) {
         this.czState = czState;
     }
+
+    @Override
+    public String toString() {
+        return "Chongzhi{" +
+                "czId=" + czId +
+                ", userbankId=" + userbankId +
+                ", czMoney=" + czMoney +
+                ", czState=" + czState +
+                '}';
+    }
 }
