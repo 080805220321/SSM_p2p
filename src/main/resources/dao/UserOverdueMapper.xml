@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.dao.UserOverdueMapper">
+  <resultMap id="BaseResultMap" type="com.zking.pojo.UserOverdue">
+    <result column="borrowMoney_id" jdbcType="VARCHAR" property="borrowmoneyId" />
+    <result column="overdueMoney" jdbcType="DECIMAL" property="overduemoney" />
+    <result column="overdueDate" jdbcType="INTEGER" property="overduedate" />
+    <result column="overdueInterest" jdbcType="DECIMAL" property="overdueinterest" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zking.pojo.UserOverdue">
+    insert into tb_useroverdue (borrowMoney_id, overdueMoney, overdueDate, 
+      overdueInterest)
+    values (#{borrowmoneyId,jdbcType=VARCHAR}, #{overduemoney,jdbcType=DECIMAL}, #{overduedate,jdbcType=INTEGER}, 
+      #{overdueinterest,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.pojo.UserOverdue">
+    insert into tb_useroverdue
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="borrowmoneyId != null">
+        borrowMoney_id,
+      </if>
+      <if test="overduemoney != null">
+        overdueMoney,
+      </if>
+      <if test="overduedate != null">
+        overdueDate,
+      </if>
+      <if test="overdueinterest != null">
+        overdueInterest,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="borrowmoneyId != null">
+        #{borrowmoneyId,jdbcType=VARCHAR},
+      </if>
+      <if test="overduemoney != null">
+        #{overduemoney,jdbcType=DECIMAL},
+      </if>
+      <if test="overduedate != null">
+        #{overduedate,jdbcType=INTEGER},
+      </if>
+      <if test="overdueinterest != null">
+        #{overdueinterest,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

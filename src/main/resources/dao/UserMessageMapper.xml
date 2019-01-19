@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.dao.UserMessageMapper">
+  <resultMap id="BaseResultMap" type="com.zking.pojo.UserMessage">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="userMessage_name" jdbcType="VARCHAR" property="usermessageName" />
+    <result column="userMessage_head" jdbcType="VARCHAR" property="usermessageHead" />
+    <result column="userMessage_date" jdbcType="DATE" property="usermessageDate" />
+    <result column="userMessage_card" jdbcType="VARCHAR" property="usermessageCard" />
+    <result column="userMessage_state" jdbcType="INTEGER" property="usermessageState" />
+    <result column="userMessage_nature" jdbcType="VARCHAR" property="usermessageNature" />
+    <result column="userMessage_trade" jdbcType="VARCHAR" property="usermessageTrade" />
+    <result column="userMessage_income" jdbcType="VARCHAR" property="usermessageIncome" />
+    <result column="userMessage_liabilities" jdbcType="VARCHAR" property="usermessageLiabilities" />
+    <result column="userMessage_home" jdbcType="VARCHAR" property="usermessageHome" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zking.pojo.UserMessage">
+    <result column="userMessage_truename" jdbcType="VARBINARY" property="usermessageTruename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, userMessage_name, userMessage_head, userMessage_date, userMessage_card, 
+    userMessage_state, userMessage_nature, userMessage_trade, userMessage_income, userMessage_liabilities, 
+    userMessage_home
+  </sql>
+  <sql id="Blob_Column_List">
+    userMessage_truename
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_usermessage
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_usermessage
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.pojo.UserMessage">
+    insert into tb_usermessage (user_id, userMessage_name, userMessage_head, 
+      userMessage_date, userMessage_card, userMessage_state, 
+      userMessage_nature, userMessage_trade, userMessage_income, 
+      userMessage_liabilities, userMessage_home, 
+      userMessage_truename)
+    values (#{userId,jdbcType=INTEGER}, #{usermessageName,jdbcType=VARCHAR}, #{usermessageHead,jdbcType=VARCHAR}, 
+      #{usermessageDate,jdbcType=DATE}, #{usermessageCard,jdbcType=VARCHAR}, #{usermessageState,jdbcType=INTEGER}, 
+      #{usermessageNature,jdbcType=VARCHAR}, #{usermessageTrade,jdbcType=VARCHAR}, #{usermessageIncome,jdbcType=VARCHAR}, 
+      #{usermessageLiabilities,jdbcType=VARCHAR}, #{usermessageHome,jdbcType=VARCHAR}, 
+      #{usermessageTruename,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.pojo.UserMessage">
+    insert into tb_usermessage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="usermessageName != null">
+        userMessage_name,
+      </if>
+      <if test="usermessageHead != null">
+        userMessage_head,
+      </if>
+      <if test="usermessageDate != null">
+        userMessage_date,
+      </if>
+      <if test="usermessageCard != null">
+        userMessage_card,
+      </if>
+      <if test="usermessageState != null">
+        userMessage_state,
+      </if>
+      <if test="usermessageNature != null">
+        userMessage_nature,
+      </if>
+      <if test="usermessageTrade != null">
+        userMessage_trade,
+      </if>
+      <if test="usermessageIncome != null">
+        userMessage_income,
+      </if>
+      <if test="usermessageLiabilities != null">
+        userMessage_liabilities,
+      </if>
+      <if test="usermessageHome != null">
+        userMessage_home,
+      </if>
+      <if test="usermessageTruename != null">
+        userMessage_truename,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="usermessageName != null">
+        #{usermessageName,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageHead != null">
+        #{usermessageHead,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageDate != null">
+        #{usermessageDate,jdbcType=DATE},
+      </if>
+      <if test="usermessageCard != null">
+        #{usermessageCard,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageState != null">
+        #{usermessageState,jdbcType=INTEGER},
+      </if>
+      <if test="usermessageNature != null">
+        #{usermessageNature,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageTrade != null">
+        #{usermessageTrade,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageIncome != null">
+        #{usermessageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageLiabilities != null">
+        #{usermessageLiabilities,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageHome != null">
+        #{usermessageHome,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageTruename != null">
+        #{usermessageTruename,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.pojo.UserMessage">
+    update tb_usermessage
+    <set>
+      <if test="usermessageName != null">
+        userMessage_name = #{usermessageName,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageHead != null">
+        userMessage_head = #{usermessageHead,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageDate != null">
+        userMessage_date = #{usermessageDate,jdbcType=DATE},
+      </if>
+      <if test="usermessageCard != null">
+        userMessage_card = #{usermessageCard,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageState != null">
+        userMessage_state = #{usermessageState,jdbcType=INTEGER},
+      </if>
+      <if test="usermessageNature != null">
+        userMessage_nature = #{usermessageNature,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageTrade != null">
+        userMessage_trade = #{usermessageTrade,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageIncome != null">
+        userMessage_income = #{usermessageIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageLiabilities != null">
+        userMessage_liabilities = #{usermessageLiabilities,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageHome != null">
+        userMessage_home = #{usermessageHome,jdbcType=VARCHAR},
+      </if>
+      <if test="usermessageTruename != null">
+        userMessage_truename = #{usermessageTruename,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zking.pojo.UserMessage">
+    update tb_usermessage
+    set userMessage_name = #{usermessageName,jdbcType=VARCHAR},
+      userMessage_head = #{usermessageHead,jdbcType=VARCHAR},
+      userMessage_date = #{usermessageDate,jdbcType=DATE},
+      userMessage_card = #{usermessageCard,jdbcType=VARCHAR},
+      userMessage_state = #{usermessageState,jdbcType=INTEGER},
+      userMessage_nature = #{usermessageNature,jdbcType=VARCHAR},
+      userMessage_trade = #{usermessageTrade,jdbcType=VARCHAR},
+      userMessage_income = #{usermessageIncome,jdbcType=VARCHAR},
+      userMessage_liabilities = #{usermessageLiabilities,jdbcType=VARCHAR},
+      userMessage_home = #{usermessageHome,jdbcType=VARCHAR},
+      userMessage_truename = #{usermessageTruename,jdbcType=VARBINARY}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.pojo.UserMessage">
+    update tb_usermessage
+    set userMessage_name = #{usermessageName,jdbcType=VARCHAR},
+      userMessage_head = #{usermessageHead,jdbcType=VARCHAR},
+      userMessage_date = #{usermessageDate,jdbcType=DATE},
+      userMessage_card = #{usermessageCard,jdbcType=VARCHAR},
+      userMessage_state = #{usermessageState,jdbcType=INTEGER},
+      userMessage_nature = #{usermessageNature,jdbcType=VARCHAR},
+      userMessage_trade = #{usermessageTrade,jdbcType=VARCHAR},
+      userMessage_income = #{usermessageIncome,jdbcType=VARCHAR},
+      userMessage_liabilities = #{usermessageLiabilities,jdbcType=VARCHAR},
+      userMessage_home = #{usermessageHome,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

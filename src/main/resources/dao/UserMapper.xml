@@ -79,7 +79,4 @@
       user_email = #{userEmail,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-    <select id="a" parameterType="java.util.HashMap">
-        select * from tb_user
-    </select>
 </mapper>

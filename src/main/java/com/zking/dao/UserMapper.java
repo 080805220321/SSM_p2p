@@ -2,8 +2,6 @@ package com.zking.dao;
 
 import com.zking.pojo.User;
 
-import java.util.Map;
-
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userId);
 
@@ -16,6 +14,4 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
-    Map<String,Object> a();
 }
