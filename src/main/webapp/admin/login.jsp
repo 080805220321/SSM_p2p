@@ -1,4 +1,6 @@
-﻿<!DOCTYPE HTML>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -28,7 +30,7 @@
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
 
-    <form class="form form-horizontal" action="index.jsp" method="post">
+    <form class="form form-horizontal" action="/adminLogin.do" method="post">
 
       <div class="row cl">
         <label class="form-label col-xs-3"></label>

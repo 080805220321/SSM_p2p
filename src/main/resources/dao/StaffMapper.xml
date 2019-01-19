@@ -79,4 +79,13 @@
       staff_state = #{staffState,jdbcType=INTEGER}
     where staff_id = #{staffId,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据员工登录名查询该员工 -->
+  <select id="selectByStaffName" parameterType="com.zking.pojo.Staff" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_staff
+    where staff_name = #{staffName,jdbcType=INTEGER}
+  </select>
+
 </mapper>

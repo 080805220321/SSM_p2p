@@ -111,8 +111,8 @@
             <!--4.关联realm（自定义的一个MyRealm类）-->
             <property name="realm" ref="myRealm" />
         </bean>
-            <!--5.配置自定义MyRealm类，见后面MyRealm代码-->
-        <bean id="myRealm" class="com.zking.shiro.MyRealm"></bean>
+            <!--5.配置自定义MyRealm类，见后面AdminRealm代码-->
+        <bean id="myRealm" class="com.zking.shiro.AdminRealm"></bean>
 
 
 

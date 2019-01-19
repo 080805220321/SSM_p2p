@@ -1,7 +1,7 @@
 package com.zking.shiro;
 
-import com.zking.pojo.User;
-import com.zking.service.UserService;
+import com.zking.dao.StaffMapper;
+import com.zking.pojo.Staff;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -11,45 +11,46 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-public class MyRealm extends AuthorizingRealm {
+public class AdminRealm extends AuthorizingRealm {
 
     @Resource
-    private UserService userService;
+    private StaffMapper staffMapper;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //授权主体(当前登录用户)
-         Subject subject = SecurityUtils.getSubject();
-         User dbUser = (User) subject.getPrincipal();
+        Subject subject = SecurityUtils.getSubject();
+        Staff staff = (Staff)subject.getPrincipal();
 
-        List<Map<String,Object>> map = userService.getUserRight(dbUser.getUserId());
+        List<Map<String,Object>> map = staffMapper.getStaffAllAuto(staff.getStaffId());
         if(map.size()!=0){
-            for (Map<String, Object> objectStringMap : map) {
+            for (Map<String, Object> key : map) {
                 //获得权限授权码
-                info.addStringPermission(objectStringMap.get("right_code").toString());//数据库授权码字段
+                info.addStringPermission(key.get("auto_code").toString());
             }
         }
         return info;
     }
 
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+
         //用户认证
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
-        //根据用户名查询该用户
-        User dbUser = userService.selectUserByUserName(token.getUsername());
-        if(dbUser==null){
-            return null;  //用户不存在
+        //根据员工名查询该员工
+        Staff dbStaff = staffMapper.selectByStaffName(token.getUsername());
+        System.out.println("认证的员工:"+dbStaff);
+        if(dbStaff==null){
+           return null;  //员工不存在
         }
-     //   new SimpleAuthenticationInfo(dbUser.getUserName(),dbUser.getUserPwd(),"");
-        return new SimpleAuthenticationInfo(dbUser,dbUser.getUserPwd(),"");
-
         //用户存在：返回用户数据和密码，匹配密码是否正确
+        return new SimpleAuthenticationInfo(dbStaff,dbStaff.getStaffPwd(),"");
     }
+
 }
