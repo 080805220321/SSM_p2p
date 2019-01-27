@@ -6,6 +6,7 @@
     <result column="userMessage_name" jdbcType="VARCHAR" property="usermessageName" />
     <result column="userMessage_head" jdbcType="VARCHAR" property="usermessageHead" />
     <result column="userMessage_date" jdbcType="DATE" property="usermessageDate" />
+    <result column="usermessage_truename" jdbcType="VARCHAR" property="usermessageTruename" />
     <result column="userMessage_card" jdbcType="VARCHAR" property="usermessageCard" />
     <result column="userMessage_state" jdbcType="INTEGER" property="usermessageState" />
     <result column="userMessage_nature" jdbcType="VARCHAR" property="usermessageNature" />
@@ -14,22 +15,16 @@
     <result column="userMessage_liabilities" jdbcType="VARCHAR" property="usermessageLiabilities" />
     <result column="userMessage_home" jdbcType="VARCHAR" property="usermessageHome" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zking.pojo.UserMessage">
-    <result column="userMessage_truename" jdbcType="VARBINARY" property="usermessageTruename" />
-  </resultMap>
+
   <sql id="Base_Column_List">
-    user_id, userMessage_name, userMessage_head, userMessage_date, userMessage_card, 
+    user_id, userMessage_name, userMessage_head, userMessage_date, usermessage_truename, userMessage_card,
     userMessage_state, userMessage_nature, userMessage_trade, userMessage_income, userMessage_liabilities, 
     userMessage_home
   </sql>
-  <sql id="Blob_Column_List">
-    userMessage_truename
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from tb_usermessage
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
@@ -47,7 +42,7 @@
       #{usermessageDate,jdbcType=DATE}, #{usermessageCard,jdbcType=VARCHAR}, #{usermessageState,jdbcType=INTEGER}, 
       #{usermessageNature,jdbcType=VARCHAR}, #{usermessageTrade,jdbcType=VARCHAR}, #{usermessageIncome,jdbcType=VARCHAR}, 
       #{usermessageLiabilities,jdbcType=VARCHAR}, #{usermessageHome,jdbcType=VARCHAR}, 
-      #{usermessageTruename,jdbcType=VARBINARY})
+      #{usermessageTruename,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zking.pojo.UserMessage">
     insert into tb_usermessage
@@ -124,7 +119,7 @@
         #{usermessageHome,jdbcType=VARCHAR},
       </if>
       <if test="usermessageTruename != null">
-        #{usermessageTruename,jdbcType=VARBINARY},
+        #{usermessageTruename,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -162,7 +157,7 @@
         userMessage_home = #{usermessageHome,jdbcType=VARCHAR},
       </if>
       <if test="usermessageTruename != null">
-        userMessage_truename = #{usermessageTruename,jdbcType=VARBINARY},
+        userMessage_truename = #{usermessageTruename,jdbcType=VARCHAR},
       </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
@@ -179,7 +174,7 @@
       userMessage_income = #{usermessageIncome,jdbcType=VARCHAR},
       userMessage_liabilities = #{usermessageLiabilities,jdbcType=VARCHAR},
       userMessage_home = #{usermessageHome,jdbcType=VARCHAR},
-      userMessage_truename = #{usermessageTruename,jdbcType=VARBINARY}
+      userMessage_truename = #{usermessageTruename,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zking.pojo.UserMessage">

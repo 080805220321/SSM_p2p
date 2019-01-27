@@ -25,7 +25,7 @@ public class UserMessage {
 
     private String usermessageHome;
 
-    private byte[] usermessageTruename;
+    private String usermessageTruename;
 
     public Integer getUserId() {
         return userId;
@@ -115,11 +115,11 @@ public class UserMessage {
         this.usermessageHome = usermessageHome == null ? null : usermessageHome.trim();
     }
 
-    public byte[] getUsermessageTruename() {
+    public String getUsermessageTruename() {
         return usermessageTruename;
     }
 
-    public void setUsermessageTruename(byte[] usermessageTruename) {
+    public void setUsermessageTruename(String usermessageTruename) {
         this.usermessageTruename = usermessageTruename;
     }
 }
