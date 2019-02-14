@@ -54,4 +54,15 @@ public class StaffServiceImpl implements StaffService {
     public List<Map<String, Object>> getStaffAllAuto(Integer staffId) {
         return staffMapper.getStaffAllAuto(staffId);
     }
+
+    @Override
+    public List<Map<String, Object>> getStaffAll_admin() {
+        return staffMapper.getStaffAll_admin();
+    }
+
+    @Override
+    public int insertStaff_ID(Staff staff) {
+        return staffMapper.insertStaff_ID(staff);
+    }
+
 }

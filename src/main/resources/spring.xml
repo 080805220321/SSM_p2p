@@ -97,8 +97,8 @@
                 <!--使用shiro的内置过滤器拦截资源-->
                 <property name="filterChainDefinitions" >
                     <value>
-                        /admin/login.jsp=authc
-                        /**=anon
+                        /admin/login.jsp=anon
+                        /admin/index.jsp=authc
                     </value>
                 </property>
                 <!--2.修改shiro的默认登录-->

@@ -88,4 +88,11 @@
     where staff_name = #{staffName,jdbcType=INTEGER}
   </select>
 
+  <!--  添加员工返回角色自增ID  -->
+  <insert id="insertStaff_ID" useGeneratedKeys="true" keyProperty="staffId" parameterType="com.zking.pojo.Staff">
+    insert into tb_staff (staff_name, staff_pwd)
+    values (#{staffName,jdbcType=VARCHAR}, #{staffPwd,jdbcType=VARCHAR})
+  </insert>
+
+
 </mapper>

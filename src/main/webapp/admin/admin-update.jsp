@@ -27,13 +27,12 @@
 	<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 	<script>DD_belatedPNG.fix('*');</script>
 	<![endif]-->
-	<title>添加管理员 - 管理员管理 - H-ui.admin v3.1</title>
-
+	<title>编辑管理员 - 管理员管理 - H-ui.admin v3.1</title>
 </head>
 <body>
 
 <c:if test="${empty RoleAll_admin_staff }">
-	<c:redirect url="/getRoleAll_admin_staff.do?type=add"></c:redirect>
+	<c:redirect url="/getRoleAll_admin_staff.do"></c:redirect>
 </c:if>
 
 <article class="page-container">
@@ -41,23 +40,24 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="登录名" id="adminName" name="adminName">
+				<input type="hidden" value="${updateStaff_admin_up_session[0].staffId}" name="staffId"/>
+				<input type="text" class="input-text" value="${updateStaff_admin_up_session[0].staffName}" placeholder="" id="adminName" name="adminName">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+				<input type="text" class="input-text" autocomplete="off" value="${updateStaff_admin_up_session[0].staffPwd}" placeholder="" id="password" name="password">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>原角色：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+				<input type="text" class="input-text" autocomplete="off" value="${updateStaff_admin_up_session[0].roleName}" readonly unselectable="on">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">角色：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>新角色：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 			<span class="select-box" style="width:150px;">
 			<select class="select" name="adminRole" size="1">
@@ -69,7 +69,13 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">部门：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>原部门：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" autocomplete="off" value="${updateStaff_admin_up_session[0].deptName}" readonly unselectable="on">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>新部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 			<span class="select-box" style="width:150px;">
 			<select class="select" name="adminDept" size="1">
@@ -129,7 +135,7 @@
             submitHandler:function(form){
                 $(form).ajaxSubmit({
                     type: 'post',
-                    url: '/addStaff_admin.do',
+                    url: '/updateStaff_admin_update.do',
                     success: function(data){
                         layer.msg('添加成功!',{icon:1,time:1000});
                     },
@@ -141,7 +147,6 @@
                 parent.$('.btn-refresh').click();
                 parent.layer.close(index);
             }
-
         });
     });
 </script>

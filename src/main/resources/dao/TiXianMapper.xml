@@ -103,4 +103,12 @@
       tx_state = #{txState,jdbcType=INTEGER}
     where tx_id = #{txId,jdbcType=INTEGER}
   </update>
+
+  <!-- 查询所有提现 -->
+  <select id="getUserTiXianMoneyAll" parameterType="java.lang.String" resultType="java.util.HashMap">
+    SELECT ubm.userMessage_name userMessageName,ubm.userMessage_truename userMessageTruename,tx.tx_money txMoney,tx.tx_date txDate,tx.tx_state txState,tx.tx_id txId,ub.userbank_card userbankCard,ub.userbank_name userbankName FROM tb_usermessage ubm,tb_tixian tx,tb_userbank ub WHERE ubm.user_id=tx.user_id AND tx.userbank_id=ub.userbank_id
+  </select>
+
+
+
 </mapper>

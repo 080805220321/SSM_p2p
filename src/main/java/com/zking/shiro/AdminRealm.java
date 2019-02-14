@@ -46,7 +46,8 @@ public class AdminRealm extends AuthorizingRealm {
         //根据员工名查询该员工
         Staff dbStaff = staffMapper.selectByStaffName(token.getUsername());
         System.out.println("认证的员工:"+dbStaff);
-        if(dbStaff==null){
+        //判断是否存在或者是否被禁用
+        if(dbStaff==null || dbStaff.getStaffState()==0){
            return null;  //员工不存在
         }
         //用户存在：返回用户数据和密码，匹配密码是否正确
