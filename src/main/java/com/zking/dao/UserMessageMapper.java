@@ -1,6 +1,9 @@
 package com.zking.dao;
 
 import com.zking.pojo.UserMessage;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface UserMessageMapper {
     int deleteByPrimaryKey(Integer userId);
@@ -13,7 +16,6 @@ public interface UserMessageMapper {
 
     int updateByPrimaryKeySelective(UserMessage record);
 
-    int updateByPrimaryKeyWithBLOBs(UserMessage record);
-
     int updateByPrimaryKey(UserMessage record);
+
 }

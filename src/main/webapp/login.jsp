@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,6 +12,16 @@
 <script type="text/javascript" src="script/jquery.min.js"></script>
 <script type="text/javascript" src="script/common.js"></script>
 <script src="script/login.js" type="text/javascript"></script>
+    <script src="http://www.haofz.com/js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+           $("#submitBtn").click(function () {
+                var userPhone = $("#userName").val();
+                var pwd = $("#password").val();
+               window.location.href = "/login.do?userPhone="+userPhone+"&userPwd="+pwd;
+           });
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -57,11 +67,9 @@
 		<div class="registerTitle">用户登录</div>
 		<div class="registerCont">
 			<ul>
-				<li class="error">
-				    <span id="prrintInfo" data-info=""><span>请输入正确用户名</span></span>
-			    </li>
+
 				<li>
-					<span class="dis">用户名：</span><input class="input" type="text" onblur="userNameJy()" name="j_username" id="userName" maxlength="24" tabindex="1" autocomplete="off"> 
+					<span class="dis">手机号：</span><input class="input" type="text"  name="j_username" id="userName" maxlength="24" tabindex="1" autocomplete="off">
 				    <a id="sssdfasdfas" href="register.jsp" class="blue">注册用户</a>
 				</li>
 	                
@@ -69,13 +77,9 @@
 				   <span class="dis">密码：</span><input class="input" type="password" name="password" id="password" maxlength="24" tabindex="1" autocomplete="off">  
 				   <a href="#" id="pawHide" class="blue">忘记密码</a>
 				</li>
-				<li>
-				  <span class="dis">验证码：</span><input type="text" onkeyup="verify(this)" id="jpgVerify" style="width:166px;" class="input" name="yzm" data-msg="验证码" maxlength="4" tabindex="1" autocomplete="off">
-						<img src="images/code.jpg" id="yanzheng" alt="点击更换验证码" title="点击更换验证码" style="cursor:pointer;" class="valign">
-					<a href="javascript:void(0);" onclick="changge();" class="blue">看不清？换一张</a>
-				</li>
+
 				<li class="btn"> 
-					<input type="button" class="radius1" value="立即登录" id="submitBtn" onclick="sublogin()" disabled="disabled">
+					<input type="button" class="radius1" value="立即登录" id="submitBtn">
 				</li>
 			</ul>
 		</div>

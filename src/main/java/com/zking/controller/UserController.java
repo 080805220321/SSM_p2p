@@ -1,26 +1,26 @@
 package com.zking.controller;
 
-import com.alibaba.fastjson.JSON;
+import com.zking.dao.UserBorrowMoneyMapper;
+import com.zking.dao.UserMapper;
+import com.zking.dao.UserMessageMapper;
 import com.zking.pojo.User;
+import com.zking.pojo.UserBorrowMoney;
+import com.zking.pojo.UserMessage;
 import com.zking.redis.RedisCache;
-import com.zking.service.UserService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.springframework.http.HttpRequest;
+import com.zking.util.JuHe_PhoneNote;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author WSJ
@@ -28,100 +28,86 @@ import java.util.Map;
 
 @Controller
 public class UserController {
-
-    @Resource
-    private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private UserMessageMapper userMessageMapper;
+    @Autowired
+    private UserBorrowMoneyMapper userBorrowMoneyMapper;
     @Resource
     private RedisCache redisCache;
 
-    @RequestMapping(value = "/hello")
-    public String hello() throws Exception{
-        System.out.print("=====================");
-        System.out.print("进来了");
-        return "/admin/index.jsp";
+
+    @RequestMapping("/register")
+    public String phone(HttpServletRequest request, User user){
+        int result = userMapper.insert(user);
+        if(result>0){
+            System.out.println(user);
+            User user1 = userMapper.getUser(user.getUserPhone(),user.getUserPwd());
+            System.out.println(user1);
+            UserMessage userMessage = new UserMessage();
+            userMessage.setUserId(user1.getUserId());
+            userMessage.setUsermessageName("Wixd_"+user1.getUserId());
+            int insert = userMessageMapper.insert(userMessage);
+            if(insert>0&&result>0){
+                return "redirect:/login.jsp";
+            }
+        }
+
+        return "register.jsp";
     }
 
-    @RequestMapping(value = "/ajax")
-    public void ajax(HttpServletRequest req,HttpServletResponse resp) throws  Exception{
-        req.setCharacterEncoding("utf-8");
-        resp.setCharacterEncoding("utf-8");
-        PrintWriter out = resp.getWriter();
 
-        String name = req.getParameter("name");
-        out.write(name);
-        out.flush();
+    @RequestMapping("/phone")
+    public void userPhone(HttpServletRequest request, HttpServletResponse resp) throws  Exception{
+        String phone = request.getParameter("phone");
+        System.out.println(phone);
+        String randomVcode = JuHe_PhoneNote.createRandomVcode();
+        JuHe_PhoneNote.mobileQuery(phone,"#code#="+randomVcode);
+        PrintWriter out = resp.getWriter();
+        out.println(randomVcode);
         out.close();
     }
-
-    //添加用户
-    @RequestMapping("/addUser")
-    public String addUser(User user,HttpServletRequest req,HttpServletResponse resp) throws Exception{
-        req.setCharacterEncoding("utf-8");
-        resp.setCharacterEncoding("utf-8");
-        int n = userService.addUser(user);
-        return "/admin/index.jsp";
-    }
-
-    //用户登录验证
-    @RequestMapping("/login.do")
-    public String login(String name, String pwd, Model model, HttpServletRequest req){
-
-        Subject subject = SecurityUtils.getSubject();//获得subject
-        //打包输入的用户名和密码
-        AuthenticationToken token = new UsernamePasswordToken(name,pwd);
-
-        try{
-            //将打包好的用户名和密码传给MyRealm认证
-            subject.login(token);
-            //如果认证通过，获取Principal，主体的用户名
-            User user = (User) subject.getPrincipal();
-
-            //把用户信息存在session
-            req.getSession().setAttribute("user",user);
-
-            //如果没有异常，就登录成功访问index.jsp
-            return "redirect:/admin/index.jsp";//重定向
-        }catch(UnknownAccountException  e){//出现异常，全抛出
-            model.addAttribute("msg","用户名不存在");
-            return "/admin/login.jsp";
-        }catch(IncorrectCredentialsException e){
-            model.addAttribute("msg","密码错误");
-            return "/admin/login.jsp";
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request,HttpServletResponse resp,User user) throws Exception{
+        User u = userMapper.getUser(user.getUserPhone(), user.getUserPwd());
+        if(u!=null){
+            UserMessage userMessage = userMessageMapper.selectByPrimaryKey(u.getUserId());
+            HttpSession session = request.getSession();
+            session.setAttribute("user", userMessage);
+            return "redirect:/index1.jsp";
         }
+
+
+        return "login.jsp";
     }
-
-
-    @RequestMapping("/getUserAll.do")
-    public String getAll(Map map, HttpServletRequest req){
-        List<User> user=null;
-
-        //1.先从redis缓存中获取数据
-            //先配置redis中的key,key是唯一的,所调用dao方法所在接口的包名+类名+方法名
-            String key="com.zking.dao.UserDao.getUserAll";
-            //去redis缓存中按key获值
-            String data=redisCache.getDataFromRedis(key);
-        //判断从redis取出的值是否为null
-        if(data==null){
-            System.out.println("数据库取值");
-        //2.如果缓存中没有就查询数据库
-            user=userService.selectUserAll();
-            //注意：redis中不能存放对象集合，必须要转换json，引入fastjson
-            String str= JSON.toJSONString(user);
-
-            //放入作用域
-            req.getSession().setAttribute("UserAll", str);
-            //把查询到结果放入到redis中
-            redisCache.setDataToRedis(key,str);
-        }else{
-            //将json数据转成对象集合
-            System.out.println("缓存中取值");
-            //放入作用域
-            req.getSession().setAttribute("UserAll", data);
-            user=JSON.parseArray(data, User.class);
+    @RequestMapping("/borrow")
+    public String borrow(HttpServletRequest request, HttpServletResponse resp, UserBorrowMoney userBorrowMoney) throws Exception{
+        String borrowmoneyId="wxid"+System.currentTimeMillis();
+        String borrowmoneyWay="等额本息";
+        UserMessage user = (UserMessage) request.getSession().getAttribute("user");
+        double a=Double.longBitsToDouble(userBorrowMoney.getBorrowmoneyBorrowmoney())*0.12;
+        Long borrowmoneyInterest=Double.doubleToLongBits(a);
+        String pa="2019-2-21";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date borrowmoneyRaisedate = sdf.parse(pa);
+        String pa1="2019-2-14";
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date borrowmoneyOrderdate = sdf1.parse(pa1);
+        double c=Double.longBitsToDouble(userBorrowMoney.getBorrowmoneyBorrowmoney())*1.03;
+        Long borrowmoneyMoney=Double.doubleToLongBits(c);
+        userBorrowMoney.setUserId(user.getUserId());
+        userBorrowMoney.setBorrowmoneyRaisedate(borrowmoneyRaisedate);
+        userBorrowMoney.setBorrowmoneyOrderdate(borrowmoneyOrderdate);
+        userBorrowMoney.setBorrowmoneyMoney(borrowmoneyMoney);
+        userBorrowMoney.setBorrowmoneyInterest(borrowmoneyInterest);
+        userBorrowMoney.setBorrowmoneyWay(borrowmoneyWay);
+        userBorrowMoney.setBorrowmoneyId(borrowmoneyId);
+        int insert = userBorrowMoneyMapper.insert(userBorrowMoney);
+        if(insert>0){
+            return "index1.jsp";
         }
-            map.put("user", user);
-            return "redirect:/admin/select.jsp";
+        System.out.println(userBorrowMoney);
+        return null;
     }
-
-
 }

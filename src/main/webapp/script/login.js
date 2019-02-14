@@ -33,7 +33,7 @@
                     event.preventDefault();
                     if (flag3 != 0) {
                         $("#phoneJy").text("");
-                        $("#phoneJy").append("<span style=color:#ff7800>请先输入正确的验证码</span>");
+                        //$("#phoneJy").append("<span style=color:#ff7800></span>");
                         return false;
                     }
                     if (flag4 == 1) {
@@ -218,9 +218,9 @@
                         $(ids).text("");
                         $(ids).append("<span style=color:#ff7800>用户名只能为以字母开头,字母、数字下划线组成</span>");
                         return false;
-                    } else if (strVal.length < 6 || strVal.length > 24) {
+                    } else if (strVal.length >= 6 && strVal.length < 24) {
                         $(ids).text("");
-                        $(ids).append("<span style=color:#ff7800>用户名小于6位或者大于24位</span>");
+                        $(ids).append("<span style=color:#ff7800>用户名不小于6位且不大于24位</span>");
                         return false;
                     } else {
                         $.ajax({
@@ -318,13 +318,13 @@
                 var selectedItems = new Array();
                 $("input[name='protocol']:checked").each(function() {
                     selectedItems.push($(this).val());
-                });
+                });queding.
                 var pattern = /^(?=.*\d.*)(?=.*[a-zA-Z].*).{6,24}$/;
                 if ($('#userName').val() == null || $('#userName').val() == '') {
                     $('#userNameAlt').text("");
                     $('#userNameAlt').append("<span style=color:#ff7800>用户名不能为空</span>");
                     return false;
-                } else if (!Vtdb.VuserName($('#userName').val())) {
+                } else if (false) {
                     $('#userNameAlt').text("");
                     $('#userNameAlt').append("<span style=color:#ff7800>用户名只能为数字和字母</span>");
                     return false;

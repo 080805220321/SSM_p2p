@@ -23,7 +23,7 @@
          </javaModelGenerator>
 
          <!--生成映射文件存放位置-->
-         <sqlMapGenerator targetPackage="com.zking.mapping" targetProject="SSM_p2p\src\main\resources">
+         <sqlMapGenerator targetPackage="dao" targetProject="SSM_p2p\src\main\resources">
              <property name="enableSubPackages" value="true"/>
          </sqlMapGenerator>
          <!--生成Dao类存放位置-->
@@ -31,19 +31,6 @@
              <property name="enableSubPackages" value="false"/>
          </javaClientGenerator>
     <!--生成对应表及类名-->
-          <table tableName="tb_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_userMessage" domainObjectName="UserMessage" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_role_dept_auto" domainObjectName="RoleDeptAuto" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_auto" domainObjectName="Auto" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_dept" domainObjectName="Dept" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_staff" domainObjectName="Staff" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_userEarnings" domainObjectName="UserEarnings" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_userBorrowMoney" domainObjectName="UserBorrowMoney" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_userOverdue" domainObjectName="UserOverdue" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_userDeal" domainObjectName="UserDeal" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_userInvest" domainObjectName="UserInvest" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-          <table tableName="tb_userLiabilities" domainObjectName="UserLiabilities" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-
+ <table tableName="tb_usermessage" domainObjectName="UserMessage" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
       </context>
 </generatorConfiguration>

@@ -1,5 +1,6 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE >
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,7 +13,44 @@
 <script type="text/javascript" src="script/jquery.min.js"></script>
 <script type="text/javascript" src="script/common.js"></script>
 <script src="script/login.js" type="text/javascript"></script>
+<script type="text/javascript">
 
+    $(function () {
+        var authCode="";
+    $("a#sendPhone").click(function () {
+        var count = 60;
+        var countdown = setInterval(CountDown, 500);
+        function CountDown() {
+            $("#sendPhone").attr("disabled", true);
+            $("#sendPhone").text( "正在发送  "+count + "s");
+            if (count == 0) {
+                $("#sendPhone").text("重新发送").removeAttr("disabled");
+                clearInterval(countdown);
+            }
+            count--;
+        }
+
+         var val = $("#phone").val();
+        $.post("phone.do",{"phone":val,"result":"phone"},function (data) {
+            authCode=data;
+        });
+    });
+    $("#rege").click(function () {
+        var phonVerify = $("#phonVerify").val();
+        if (authCode==phonVerify.trim()){
+            alert("手机验证吗输入错误");
+        }else {
+
+            var password = $("#password").val();
+            var phone = $("#phone").val();
+            window.location.href = "/register.do?userPhone="+phone+"&userPwd="+password;
+        }
+
+
+    })
+    });
+
+</script>
 </head>
 <body>
 <header>
@@ -62,19 +100,16 @@
     </div>
     <div class="registerCont">
       <ul>
-        <li><span class="dis">用户名:</span>
-          <input type="text" name="userName" id="userName" class="input _userName" maxlength="24" tabindex="1">
-          <span id="userNameAlt" data-info="6-24个字符，字母开头，字母、数字下划线组成">6-24个字符，字母开头，字母、数字下划线组成</span></li>
-        <li><span class="dis">密码:</span>
+          <li class="telNumber"> <span class="dis">手机号码:</span>
+              <input type="text" class="input _phoneNum" id="phone" name="phone" tabindex="1" maxlength="11">
+              <a href="javascript:void(0);" class="button radius1 _getkey" id="sendPhone">获取验证码</a> <span id="phoneJy" data-info="请输入您的常用电话">请输入您的常用电话</span></li>
+          <li><span class="dis">密码:</span>
           <input type="password" name="user.password" id="password" class="input _password" maxlength="24" tabindex="1">
           <span id="passwordAlt" data-info="6-24个字符，英文、数字组成，区分大小写">6-24个字符，英文、数字组成，区分大小写</span></li>
         <li><span class="dis">确认密码:</span>
           <input type="password" name="repeatPassword" id="repeatPassword" class="input _repeatPassword" maxlength="24" tabindex="1">
           <span id="repeatPasswordAlt" data-info="请再次输入密码">请再次输入密码</span></li>
-       <li class="telNumber"> <span class="dis">手机号码:</span>
-          <input type="text" class="input _phoneNum" id="phone" name="phone" tabindex="1" maxlength="11">
-          <a href="javascript:void(0);" class="button radius1 _getkey" id="sendPhone">获取验证码</a> <span id="phoneJy" data-info="请输入您的常用电话">请输入您的常用电话</span></li>
-        <li class="telNumber"><span class="dis">短信验证码:</span>
+      <li class="telNumber"><span class="dis">短信验证码:</span>
           <input id="phonVerify" type="text" class="input input1  _phonVerify" data-_id="phonVerify" tabindex="1">
           <span class="info" id="phonVerifys" data-info="请输入手机验证码">请输入手机验证码</span></li>
         <li> <span class="dis">推 荐 人:</span>
@@ -83,7 +118,7 @@
         <li class="agree">
           <input name="protocol" id="protocol" type="checkbox" value="" checked="checked">
           我同意《<a href="#" target="_black">十七金融注册协议</a>》 <span id="protocolAlt" data-info="请查看协议">请查看协议</span></li>
-        <li class="btn"><a href="javascript:void(0);" class="radius1 _ajaxSubmit">立即注册</a></li>
+        <li class="btn"><a href="javascript:void(0);" class="radius1 _ajaxSubmit" id="rege">立即注册</a></li>
       </ul>
     </div>
   </div>

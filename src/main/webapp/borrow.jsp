@@ -7,15 +7,27 @@
 <meta name="description" content="十七金融">
 <meta name="author" content="十七金融">
 <link href="css/css.css" rel="stylesheet">
-<!--[if lt IE 9]>
-    <link href="css/ie.css" rel="stylesheet" type="text/css" >
+
     <meta http-equiv="X-UA-Compatible" content="IE=8" >
     <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script type="text/javascript" src="http://www.haofz.com/js/jquery-1.8.3.min.js"></script>
     <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-<!--[if lte IE 6]><meta http-equiv="refresh" content="0;url=IE6/IE6.jsp"><![endif]-->
 <link href="favicon.ico" rel="SHORTCUT ICON">
 <title>十七金融</title>
+    <script type="text/javascript">
+        $(function () {
+
+            $("#save").click(function () {
+                var loan = $("#js_dueId").val();
+                var purpose = $("#purpose").val();
+                var mobile = $("#mobile").val();
+                var loanAmount = $("#loanAmount").val();
+                var income = $("#income").val();
+                window.location.href = "/borrow.do?borrowmoneyBorrowmoney="+loanAmount+"&borrowmoneyBorrowdate="+loan+"&borrowmoneyUse="+purpose+"&income="+income;
+            });
+
+        });
+    </script>
 </head>
 <body cur="2"><!--head-->
 <div class="top">
@@ -50,34 +62,23 @@
     </div>
     <div class="formbox bdr fr">
       <table class="productForm">
-        <tr>
-          <th>居住城市</th>
-          <td>
-            <div class="citySelect">
-              <dl id="js_city">
-                <dt><i></i><span class="sp">请选择</span></dt>
-                <dd style="display:none;"></dd>
-              </dl>
-            </div>
-            <div class="tishi"><span id="cityError" class="prompt_2 hidden"></span></div>
-          </td>
-        </tr>
-        <tr>
-          <th>真实姓名</th>
-          <td>
-          	<label class="touzi01">
-              <input type="text" id="realName" name="realName" class="input_all input_1" maxlength="15"/>
-              <span>请输入真实姓名</span>
-            </label>
-            <div class="tishi"><span id="realNameError" class="prompt_2 hidden"></span></div>
-          </td>
-        </tr>
+          <tr>
+              <th>借款用途</th>
+              <td>
+                  <label class="touzi01">
+                      <input type="text" id="purpose" name="realName" class="input_all input_1" maxlength="15"/>
+
+                  </label>
+                  <div class="tishi"><span id="purpose1" class="prompt_2 hidden"></span></div>
+              </td>
+          </tr>
+
         <tr>
           <th>移动电话</th>
           <td>
             <label class="touzi01">
               <input type="text" id="mobile" name="mobile" class="input_all input_1" maxlength="11"/>
-              <span>请输入11位手机号</span>
+
             </label>
             <div class="tishi"><span id="mobileError" class="prompt_2 hidden"></span></div>
           </td>
@@ -90,21 +91,11 @@
           </td>
         </tr>
         <tr>
-          <th>出生日期</th>
-          <td>
-            <label class="touzi01">
-              <input type="text" readonly id="birthday" name="birthday" class="input_all i_time input_1" style="z-index:1000;position:relative; width:227px"/>
-              <span>yyyy-mm-dd</span>
-            </label>
-            <div class="tishi"><span id="birthdayError" class="prompt_2 hidden"></span></div>
-          </td>
-        </tr>
-        <tr>
           <th>借款金额</th>
           <td>
             <label class="touzi01">
               <input type="text" id="loanAmount" name="amount" class="input_all i_yuan input_1" maxlength="7"/>
-              <span>3万-30万</span>
+
             </label>
             <div class="tishi"><span id="amountError" class="prompt_2 hidden"></span></div>
           </td>
@@ -113,9 +104,9 @@
           <th>借款期限</th>
           <td>
             <select id="js_dueId" name="dueId" class="select1">
-              <option value="1272947783684640">12个月</option>
-              <option value="1272947783684641">18个月</option>
-              <option value="1272947783684642">24个月</option>
+              <option value="12">12个月</option>
+              <option value="24">24个月</option>
+              <option value="36">36个月</option>
             </select>
             <div class="tishi"></div>
           </td>
@@ -125,7 +116,7 @@
           <td>
             <label class="touzi01">
               <input type="text" id="income" name="income" class="input_all i_yuan input_1" maxlength="9"/>
-              <span>请填写月收入金额</span>
+
             </label>
             <div class="tishi"><span id="incomeError" class="prompt_2 hidden"></span></div>
           </td>
@@ -151,7 +142,7 @@
        <div class="title">额度期限</div>
        <ul class=" mt10 cicle">
          <li>借款额度：3万-30万元</li>
-         <li>借款期限：12、18、24个月</li>
+         <li>借款期限：12、24、36个月</li>
          <li>还款方式：等额本息，每月还款</li>
        </ul>
     </div>
@@ -166,56 +157,16 @@
   </div>
 </div>
 
-<script src="js/jquery.js"></script>
-<script src="js/Action.js"></script>
-<script src="js/waste.js"></script>
-<script src="js/banner.js"></script>
-<script src="js/jQuery-jcMarquee.js"></script>
-
-
-
-<script type="text/javascript" src="js/VisitorAPI-1.2.1-min.js"></script>
-<script type="text/javascript" src="js/AppMeasurement-1.2.1-min.js"></script>
 
 <!--时间  s-->
-<script type="text/javascript" src="js/jquery.ui.datepicker.js"></script>
-<link href="css/jquery-ui.css" rel="stylesheet"> 
-<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+
 <!--时间  e
 <script language="javascript">
 		var staticCss = 'http://static.niwodai.com/Public/Static/201404';
 		var cssVersion = '2015010618';
 		var staticUrl = 'http://static.niwodai.com/';
 </script> -->
-<script src="js/loanApplyValidate.js?v=2015010618.js" type="text/javascript"></script>
-<script src="js/detail.js?v=2015010618.js" type="text/javascript"></script>
-<script src="js/netCredit.js?v=2015010618.js" type="text/javascript"></script>
-<script src="js/loanApplyCitys.js?v=2015010618.js" type="text/javascript"></script>
-
-<script>
-$(function(){
-	//--输入框内提示-------------
-			$(".touzi01 .input_1").each(function(){
-				 var thisVal=$(this).val();
-				 if(thisVal!=""){
-				   $(this).siblings("span").hide();
-				  }else{
-				   $(this).siblings("span").show();
-				  }
-				 $(this).focus(function(){
-				   $(this).siblings("span").hide();
-				  }).blur(function(){
-					var val=$(this).val();
-					if(val!=""){
-					 $(this).siblings("span").hide();
-					}else{
-					 $(this).siblings("span").show();
-					} 
-				  });
-				});
-})
-</script>
-
 
 <!--Partner-->
 <div class="Partner mt10">
@@ -296,44 +247,6 @@ $(function(){
   </div>
 </div>
 
-<script>
-$(function(){
-    $('#Marquee_x').jcMarquee({ 'marquee':'x','margin_right':'10px','speed':20 });	
-	$(".loginbtn").click(function(){
-		$(".Pop-up").show();
-		$(".pop-bd").slideDown(500);
-		$("#form2").hide().siblings("#form1").show();
-	});
-	$(".regbtn").click(function(){
-		$(".Pop-up").show();
-		$(".pop-bd").slideDown(500);
-		$("#form1").hide().siblings("#form2").show();
-	});
-	$("#btnreg").click(function(){$(this).parents("#form1").hide().siblings("#form2").show();})
-	$("#btnlogin").click(function(){$(this).parents("#form2").hide().siblings("#form1").show();})
-	$(".close").click(function(){$(this).parents(".Pop-up").hide().find(".pop-bd").hide()});
-	
-	$(".form .form-control").each(function(){
-		var thisVal=$(this).val();
-		if(thisVal!=""){
-			$(this).siblings("span").hide();
-		}
-		else{
-			$(this).siblings("span").show();
-		}
-		$(this).focus(function(){
-			$(this).siblings("span").hide().parents("label").css("z-index","10009").siblings("label").css("z-index","10008");
-		}).blur(function(){
-			var val=$(this).val();
-			if(val!=""){
-				$(this).siblings("span").hide().siblings("label").css("z-index","10008");
-				}
-			else{
-				$(this).siblings("span").show().siblings("label").css("z-index","10008");
-			} 
-		});
-	});
-});
-</script>
+
 </body>
 </html>

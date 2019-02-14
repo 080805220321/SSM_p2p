@@ -21,8 +21,10 @@
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
+
   <dependencies>
     <!-- 引用日志文件依赖 -->
+
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -152,7 +154,16 @@
 
   <build>
     <finalName>SSM</finalName>
+      <resources>
+          <resource>
+              <directory>src/main/java</directory>
+              <!-- 此配置不可缺，否则mybatis的Mapper.xml将会丢失 -->
+              <includes>
+                  <include>**/*.xml</include>
+              </includes>
+          </resource>
 
+      </resources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
