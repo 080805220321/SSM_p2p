@@ -1,4 +1,6 @@
-﻿<!DOCTYPE HTML>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -34,13 +36,12 @@
 
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
-				<li>超级管理员</li>
+				<li>欢迎</li>
 				<li class="dropDown dropDown_hover">
-					<a href="#" class="dropDown_A">admin <i class="Hui-iconfont"></i></a>
+					<a href="#" class="dropDown_A">${StaffName}<i class="Hui-iconfont"></i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-						<li><a href="#">切换账户</a></li>
-						<li><a href="#">退出</a></li>
+						<li><a href="/staffESC.do" >退出</a></li>
 				</ul>
 			</li>
 				<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">消息</i></a> </li>
@@ -59,63 +60,30 @@
 	</div>
 </div>
 </header>
+
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 
-		<dl id="menu-article">
-			<dt><i class="Hui-iconfont"></i>借款管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+		<c:forEach items="${StaffAllAuto}" var="superclass">
+		<dl>
+			<!-- 根据父类ID等于0绑定父类权限 -->
+			<c:if test="${superclass.autoSuperclass eq '0'}">
+				<dt><i class="Hui-iconfont"></i>${superclass.autoName}<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
+			</c:if>
 			<dd>
 				<ul>
-					<li><a data-href="article-list.jsp" data-title="投标列表" href="javascript:void(0)">投标列表</a></li>
-					<li><a data-href="article-list.jsp" data-title="所有借款" href="javascript:void(0)">所有借款</a></li>
-					<li><a data-href="article-list.jsp" data-title="待审核借款" href="javascript:void(0)">待审核借款</a></li>
-					<li><a data-href="article-list.jsp" data-title="招标中借款" href="javascript:void(0)">招标中借款</a></li>
+					<c:forEach items="${StaffAllAuto}" var="auto">
+						<c:if test="${auto.autoSuperclass == superclass.autoId}">
+							<li><a data-href="${auto.autoUrl}" data-title="${auto.autoName}" href="#">${auto.autoName}</a></li>
+						</c:if>
+					</c:forEach>
 				</ul>
 			</dd>
 		</dl>
-
-		<dl id="menu-picture">
-			<dt><i class="Hui-iconfont"></i>财务管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="drawings-list.jsp" data-title="提现管理" href="javascript:void(0)">提现管理</a></li>
-					<li><a data-href="make-loans.jsp" data-title="放款管理" href="javascript:void(0)">放款管理</a></li>
-					<li><a data-href="pay-list.jsp" data-title="充值管理" href="javascript:void(0)">充值管理</a></li>
-					<li><a data-href="transaction-list.jsp" data-title="交易管理" href="javascript:void(0)">交易管理</a></li>
-				</ul>
-			</dd>
-		</dl>
-
-		<dl id="menu-comments">
-			<dt><i class="Hui-iconfont"></i>用户管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="user-index.jsp" data-title="用户信息" href="javascript:;">用户信息</a></li>
-				</ul>
-			</dd>
-		</dl>
-
-		<dl id="menu-admin-comments">
-			<dt><i class="Hui-iconfont"></i>员工管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="admin-role.jsp" data-title="角色列表" href="javascript:void(0)">角色管理</a></li>
-					<li><a data-href="admin-list.jsp" data-title="员工列表" href="javascript:void(0)">员工管理</a></li>
-				</ul>
-			</dd>
-		</dl>
-
-		<dl id="menu-shiro">
-			<dt><i class="Hui-iconfont"></i>权限管理<i class="Hui-iconfont menu_dropdown-arrow"></i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="admin-permission.jsp" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-				</ul>
-			</dd>
-		</dl>
-
+		</c:forEach>
 </div>
 </aside>
+
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
 <section class="Hui-article-box">
 	<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
@@ -152,6 +120,7 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
+
 $(function(){
 	/*$("#min_title_list li").contextMenu('Huiadminmenu', {
 		bindings: {

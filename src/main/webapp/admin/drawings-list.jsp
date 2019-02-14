@@ -5,7 +5,8 @@
   Time: 10:49
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -29,37 +30,52 @@
     <title>提款管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont"></i> 首页 <span class="c-gray en">&gt;</span> 提款管理 <span class="c-gray en">&gt;</span> 提款列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-<div class="page-container">
-    <div class="text-c">
-        <button name=""  class="btn btn-success" type="submit"><i class="Hui-iconfont"></i> 全部提现</button>&nbsp;&nbsp;
-        <button name=""  class="btn btn-success" type="submit"><i class="Hui-iconfont"></i> 待审核提现</button>&nbsp;&nbsp;
-        <button name=""  class="btn btn-success" type="submit"><i class="Hui-iconfont"></i> 失败提现</button>
-    </div>
 
+<c:if test="${empty UserTiXianMoneyAll }">
+    <c:redirect url="/getUserTiXianMoneyAll.do"></c:redirect>
+</c:if>
+
+<nav class="breadcrumb"><i class="Hui-iconfont"></i> 首页 <span class="c-gray en">&gt;</span> 财务管理 <span class="c-gray en">&gt;</span> 提现管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">刷新</i></a></nav>
+<div class="page-container">
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
             <tr class="text-c">
                 <th width="80">ID</th>
-                <th width="100">用户昵称</th>
-                <th>手机号码</th>
-                <th width="150">是否实名</th>
-                <th width="60">账户可用金额</th>
-                <th width="60">审核</th>
+                <th width="80">用户名</th>
+                <th width="100">真实姓名</th>
+                <th>提现卡号</th>
+                <th width="150">提现银行</th>
+                <th width="60">提现金额</th>
+                <th width="60">提现日期</th>
+                <th width="60">状态</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
             <tbody>
+            <c:forEach items="${UserTiXianMoneyAll}" var="tx">
             <tr class="text-c">
-                <td>001</td>
-                <td>分类名称</td>
-                <td></td>
-                <td class="text-c">标签</td>
-                <td>2014-6-11 11:11:42</td>
+                <td>${tx.txId}</td>
+                <td>${tx.userMessageName}</td>
+                <td>${tx.userMessageTruename}</td>
+                <td>${tx.userbankCard}</td>
+                <td>${tx.userbankName}</td>
+                <td>${tx.txMoney} 元</td>
+                <td>${tx.txDate}</td>
+                <c:if test="${tx.txState==1}">
                 <td class="td-status"><span class="label label-success radius">待审核</span></td>
-                <td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings(this,'10001')" href="javascript:;" title="审核">审核</a></td>
+                <td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings(this,${tx.txId})" href="javascript:;" title="审核">审核</a></td>
+                </c:if>
+                <c:if test="${tx.txState==0}">
+                    <td class="td-status"><span class="label label-danger radius">提现失败</span></td>
+                    <td class="td-status"><span class="label label-danger radius">提现失败</span></td>
+                </c:if>
+                <c:if test="${tx.txState==2}">
+                    <td class="td-status"><span class="label label-success radius">已提现</span></td>
+                    <td class="td-status"><span class="label label-success radius">已提现</span></td>
+                </c:if>
             </tr>
+            </c:forEach>
             </tbody>
         </table>
     </div>
@@ -84,16 +100,22 @@
                 closeBtn: 0
             },
             function(){
-                $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="user_drawings(this,id)" href="javascript:;" title="审核通过">通过</a>');
-                $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">审核通过</span>');
-                $(obj).remove();
-                layer.msg('审核通过', {icon:6,time:1000});
+            var a =2;
+                $.post('/updateUserTiXianMoney.do',{'id':id,'a':a},function(){
+                    $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="user_drawings(this,id)" href="javascript:;" title="审核通过">通过</a>');
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">审核通过</span>');
+                    $(obj).remove();
+                    layer.msg('审核通过', {icon:6,time:1000});
+                });
             },
             function(){
-                $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="user_drawings(this,id)" href="javascript:;" title="审核通过">未通过</a>');
-                $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-                $(obj).remove();
-                layer.msg('未通过', {icon:5,time:1000});
+            var a=0;
+                $.post('/updateUserTiXianMoney.do',{'id':id,'a':a},function(){
+                    $(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="user_drawings(this,id)" href="javascript:;" title="审核通过">未通过</a>');
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
+                    $(obj).remove();
+                    layer.msg('未通过', {icon:5,time:1000});
+                });
             });
     }
 

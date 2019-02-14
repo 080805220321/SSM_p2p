@@ -1,4 +1,6 @@
-﻿<!DOCTYPE HTML>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -22,9 +24,14 @@
 <title>角色管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont"></i> 首页 <span class="c-gray en">&gt;</span> 员工管理 <span class="c-gray en">&gt;</span> 角色管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
+<c:if test="${empty AdminRoleAll }">
+	<c:redirect url="/getAllRole.do"></c:redirect>
+</c:if>
+
+<nav class="breadcrumb"><i class="Hui-iconfont"></i> 首页 <span class="c-gray en">&gt;</span> 权限管理 <span class="c-gray en">&gt;</span> 角色管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">刷新</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"><a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','admin-role-add.jsp','800')"><i class="Hui-iconfont"></i> 添加角色</a> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"><a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','admin-role-add.jsp','','500')"><i class="Hui-iconfont"></i> 添加角色</a> </span></div>
 	<table class="table table-border table-bordered table-hover table-bg">
 		<thead>
 			<tr class="text-c">
@@ -36,20 +43,22 @@
 			</tr>
 		</thead>
 		<tbody>
+
+			<c:forEach items="${AdminRoleAll}" var="r">
 			<tr class="text-c">
-				<td>1</td>
-				<td>超级管理员</td>
-				<td>拥有至高无上的权利</td>
-				<td class="td-status"><span class="label label-success radius">已启用</span></td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">停用</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.jsp','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">编辑</i></a></td>
+				<td>${r.roleId}</td>
+				<td>${r.roleName}</td>
+				<td>${r.roleDescribe}</td>
+					<c:if test="${r.roleState==0}">
+					<td class="td-status"><span class="label radius">已停用</span></td>
+					<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,${r.roleId})" href="javascript:;" title="启用"><i class="Hui-iconfont">启用</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-role-update.jsp',${r.roleId},'800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">编辑</i></a></td>
+					</c:if>
+					<c:if test="${r.roleState==1}">
+						<td class="td-status"><span class="label label-success radius">已启用</span></td>
+						<td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,${r.roleId})" href="javascript:;" title="停用"><i class="Hui-iconfont">停用</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-role-update.jsp',${r.roleId},'800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">编辑</i></a></td>
+					</c:if>
 			</tr>
-			<tr class="text-c">
-				<td>2</td>
-				<td>总编</td>
-				<td>具有添加、审核、发布、删除内容的权限</td>
-				<td class="td-status"><span class="label radius">已停用</span></td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">停用</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.jsp','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">编辑</i></a></td>
-			</tr>
+			</c:forEach>
 
 		</tbody>
 	</table>
@@ -64,30 +73,16 @@
 <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
     /*管理员-增加*/
-    function admin_add(title,url,w,h){
+    function admin_role_add(title,url,w,h){
         layer_show(title,url,w,h);
-    }
-    /*管理员-删除*/
-    function admin_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            $.ajax({
-                type: 'POST',
-                url: '',
-                dataType: 'json',
-                success: function(data){
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!',{icon:1,time:1000});
-                },
-                error:function(data) {
-                    console.log(data.msg);
-                },
-            });
-        });
     }
 
     /*管理员-编辑*/
     function admin_edit(title,url,id,w,h){
-        layer_show(title,url,w,h);
+		//ajax根据角色ID获取此角色权限放入session
+		$.post('/AdminUpdateRoleById.do',{'id':id},function(da){
+            layer_show(title,url,w,h);
+		});
     }
     /*管理员-停用*/
     function admin_stop(obj,id){

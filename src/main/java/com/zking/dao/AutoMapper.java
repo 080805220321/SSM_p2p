@@ -2,6 +2,8 @@ package com.zking.dao;
 
 import com.zking.pojo.Auto;
 
+import java.util.List;
+
 public interface AutoMapper {
     int deleteByPrimaryKey(Integer autoId);
 
@@ -14,4 +16,6 @@ public interface AutoMapper {
     int updateByPrimaryKeySelective(Auto record);
 
     int updateByPrimaryKey(Auto record);
+
+    List<Auto> adminGetAllAuto();
 }

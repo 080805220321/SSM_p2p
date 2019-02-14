@@ -18,4 +18,7 @@ public interface UserMessageMapper {
 
     int updateByPrimaryKey(UserMessage record);
 
+    @Select("select user_id userId,userMessage_name usermessageName,userMessage_date usermessageDate,userMessage_truename usermessageTruename,userMessage_state usermessageState  from tb_usermessage")
+    List<UserMessage> getUserAll_admin();
+
 }

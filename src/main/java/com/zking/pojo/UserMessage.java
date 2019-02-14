@@ -27,6 +27,8 @@ public class UserMessage {
 
     private String usermessageHome;
 
+
+
     public Integer getUserId() {
         return userId;
     }
@@ -122,4 +124,6 @@ public class UserMessage {
     public void setUsermessageHome(String usermessageHome) {
         this.usermessageHome = usermessageHome == null ? null : usermessageHome.trim();
     }
+
+
 }

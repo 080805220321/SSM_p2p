@@ -31,49 +31,59 @@
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-
-<c:if test="${empty AdminAutoAll }">
-	<c:redirect url="/getAllAuto.do"></c:redirect>
-</c:if>
-
 <article class="page-container">
 
-
-	<form action="/AdminAutoAllForm.do" method="post" class="form form-horizontal" id="form-admin-role-add">
+	<form action="/AdminUpdateRoleById_All.do" method="post" class="form form-horizontal" id="form-admin-role-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" id="roleName" name="roleName">
+				<input type="hidden" name="role_id" value="${Admin_Role.roleId}"/>
+				<input type="text" class="input-text" placeholder="" id="roleName" name="roleName" value="${Admin_Role.roleName}">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">角色描述：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="" id="" name="roleBeizhu">
+				<input type="text" class="input-text" placeholder="" id="" name="roleBeizhu" value="${Admin_Role.roleDescribe}">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">网站角色：</label>
 			<div class="formControls col-xs-8 col-sm-9">
+
 				<c:forEach items="${AdminAutoAll}" var="a">
 					<c:if test="${a.autoSuperclass==0}">
-						<dl class="permission-list">
-					<dt>
-						<label><input type="checkbox" value="${a.autoId}" name="user-Character-0-0" id="user-Character-0">${a.autoName}</label>
-					</dt>
-					</c:if>
-					<dd>
-						<dl class="cl permission-list2">
-							<c:forEach items="${AdminAutoAll}" var="aa">
-								<c:if test="${aa.autoSuperclass == a.autoId}">
+					<dl class="permission-list">
+						<c:forEach items="${RoleAutoById}" var="r">
+							<c:if test="${a.autoId==r.autoId}">
 							<dt>
-								<label><input type="checkbox" value="${aa.autoId}" name="user-Character-0-0" id="user-Character-0-0">${aa.autoName}</label>
+								<label><input type="checkbox" value="${a.autoId}" name="user-Character-0-0" checked="true">${a.autoName}</label>
 							</dt>
-								</c:if>
-							</c:forEach>
-						</dl>
-					</dd>
-				</dl>
+							</c:if>
+						</c:forEach>
+						<dt>
+							<label><input type="checkbox" value="${a.autoId}" name="user-Character-0-0">${a.autoName}</label>
+						</dt>
+						</c:if>
+						<dd>
+							<dl class="cl permission-list2">
+								<c:forEach items="${AdminAutoAll}" var="aa">
+									<c:if test="${aa.autoSuperclass == a.autoId}">
+										<c:forEach items="${RoleAutoById}" var="rr">
+											<c:if test="${aa.autoId==rr.autoId}">
+											<dt>
+												<label><input type="checkbox" value="${aa.autoId}" name="user-Character-0-0" checked="true">${aa.autoName}</label>
+											</dt>
+											</c:if>
+										</c:forEach>
+										<dt>
+											<label><input type="checkbox" value="${aa.autoId}" name="user-Character-0-0">${aa.autoName}</label>
+										</dt>
+									</c:if>
+								</c:forEach>
+							</dl>
+						</dd>
+					</dl>
 				</c:forEach>
 			</div>
 		</div>
@@ -96,6 +106,11 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
+
+
+
+
+
 $(function(){
 	$(".permission-list dt input:checkbox").click(function(){
 		$(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
@@ -129,8 +144,7 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit();
 			var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);
-            //location.href="admin-role.jsp";
+			parent.layer.close(index);
 		}
 
 	});

@@ -2,6 +2,8 @@ package com.zking.dao;
 
 import com.zking.pojo.Role;
 
+import java.util.List;
+
 public interface RoleMapper {
     int deleteByPrimaryKey(Integer roleId);
 
@@ -14,4 +16,8 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    List<Role> getRoleAll();
+
+    int insertRole_ID(Role record);
 }

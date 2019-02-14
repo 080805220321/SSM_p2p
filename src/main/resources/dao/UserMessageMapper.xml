@@ -6,7 +6,11 @@
     <result column="userMessage_name" jdbcType="VARCHAR" property="usermessageName" />
     <result column="userMessage_head" jdbcType="VARCHAR" property="usermessageHead" />
     <result column="userMessage_date" jdbcType="DATE" property="usermessageDate" />
+<<<<<<< HEAD
     <result column="userMessage_truename" jdbcType="VARCHAR" property="usermessageTruename" />
+=======
+    <result column="usermessage_truename" jdbcType="VARCHAR" property="usermessageTruename" />
+>>>>>>> origin/master
     <result column="userMessage_card" jdbcType="VARCHAR" property="usermessageCard" />
     <result column="userMessage_state" jdbcType="INTEGER" property="usermessageState" />
     <result column="userMessage_nature" jdbcType="VARCHAR" property="usermessageNature" />
@@ -15,11 +19,21 @@
     <result column="userMessage_liabilities" jdbcType="VARCHAR" property="usermessageLiabilities" />
     <result column="userMessage_home" jdbcType="VARCHAR" property="usermessageHome" />
   </resultMap>
+<<<<<<< HEAD
   <sql id="Base_Column_List">
     user_id, userMessage_name, userMessage_head, userMessage_date, userMessage_truename, 
     userMessage_card, userMessage_state, userMessage_nature, userMessage_trade, userMessage_income, 
     userMessage_liabilities, userMessage_home
   </sql>
+=======
+
+  <sql id="Base_Column_List">
+    user_id, userMessage_name, userMessage_head, userMessage_date, usermessage_truename, userMessage_card,
+    userMessage_state, userMessage_nature, userMessage_trade, userMessage_income, userMessage_liabilities, 
+    userMessage_home
+  </sql>
+
+>>>>>>> origin/master
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -37,10 +51,17 @@
       userMessage_income, userMessage_liabilities, 
       userMessage_home)
     values (#{userId,jdbcType=INTEGER}, #{usermessageName,jdbcType=VARCHAR}, #{usermessageHead,jdbcType=VARCHAR}, 
+<<<<<<< HEAD
       #{usermessageDate,jdbcType=DATE}, #{usermessageTruename,jdbcType=VARCHAR}, #{usermessageCard,jdbcType=VARCHAR}, 
       #{usermessageState,jdbcType=INTEGER}, #{usermessageNature,jdbcType=VARCHAR}, #{usermessageTrade,jdbcType=VARCHAR}, 
       #{usermessageIncome,jdbcType=VARCHAR}, #{usermessageLiabilities,jdbcType=VARCHAR}, 
       #{usermessageHome,jdbcType=VARCHAR})
+=======
+      #{usermessageDate,jdbcType=DATE}, #{usermessageCard,jdbcType=VARCHAR}, #{usermessageState,jdbcType=INTEGER}, 
+      #{usermessageNature,jdbcType=VARCHAR}, #{usermessageTrade,jdbcType=VARCHAR}, #{usermessageIncome,jdbcType=VARCHAR}, 
+      #{usermessageLiabilities,jdbcType=VARCHAR}, #{usermessageHome,jdbcType=VARCHAR}, 
+      #{usermessageTruename,jdbcType=VARCHAR})
+>>>>>>> origin/master
   </insert>
   <insert id="insertSelective" parameterType="com.zking.pojo.UserMessage">
     insert into tb_usermessage
@@ -119,6 +140,12 @@
       <if test="usermessageHome != null">
         #{usermessageHome,jdbcType=VARCHAR},
       </if>
+<<<<<<< HEAD
+=======
+      <if test="usermessageTruename != null">
+        #{usermessageTruename,jdbcType=VARCHAR},
+      </if>
+>>>>>>> origin/master
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zking.pojo.UserMessage">
@@ -157,9 +184,33 @@
       <if test="usermessageHome != null">
         userMessage_home = #{usermessageHome,jdbcType=VARCHAR},
       </if>
+<<<<<<< HEAD
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+=======
+      <if test="usermessageTruename != null">
+        userMessage_truename = #{usermessageTruename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zking.pojo.UserMessage">
+    update tb_usermessage
+    set userMessage_name = #{usermessageName,jdbcType=VARCHAR},
+      userMessage_head = #{usermessageHead,jdbcType=VARCHAR},
+      userMessage_date = #{usermessageDate,jdbcType=DATE},
+      userMessage_card = #{usermessageCard,jdbcType=VARCHAR},
+      userMessage_state = #{usermessageState,jdbcType=INTEGER},
+      userMessage_nature = #{usermessageNature,jdbcType=VARCHAR},
+      userMessage_trade = #{usermessageTrade,jdbcType=VARCHAR},
+      userMessage_income = #{usermessageIncome,jdbcType=VARCHAR},
+      userMessage_liabilities = #{usermessageLiabilities,jdbcType=VARCHAR},
+      userMessage_home = #{usermessageHome,jdbcType=VARCHAR},
+      userMessage_truename = #{usermessageTruename,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+>>>>>>> origin/master
   <update id="updateByPrimaryKey" parameterType="com.zking.pojo.UserMessage">
     update tb_usermessage
     set userMessage_name = #{usermessageName,jdbcType=VARCHAR},

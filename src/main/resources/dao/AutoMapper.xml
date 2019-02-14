@@ -139,4 +139,13 @@
       auto_superclass = #{autoSuperclass,jdbcType=INTEGER}
     where auto_id = #{autoId,jdbcType=INTEGER}
   </update>
+
+
+  <!--  获得所有权限节点  -->
+  <select id="adminGetAllAuto" resultMap="BaseResultMap" parameterType="com.zking.pojo.Auto">
+    select
+    <include refid="Base_Column_List" />
+    from tb_auto
+  </select>
+
 </mapper>

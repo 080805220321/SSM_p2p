@@ -79,4 +79,20 @@
       role_state = #{roleState,jdbcType=INTEGER}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
+
+  <!--  获得所有角色  -->
+  <select id="getRoleAll" resultMap="BaseResultMap" parameterType="com.zking.pojo.Role">
+    select
+    <include refid="Base_Column_List" />
+    from tb_role
+  </select>
+
+  <!--  添加角色返回角色自增ID  -->
+  <insert id="insertRole_ID" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.zking.pojo.Role">
+    insert into tb_role (role_name, role_describe)
+    values (#{roleName,jdbcType=VARCHAR}, #{roleDescribe,jdbcType=VARCHAR})
+  </insert>
+
+
+
 </mapper>

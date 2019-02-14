@@ -79,4 +79,20 @@
       staff_state = #{staffState,jdbcType=INTEGER}
     where staff_id = #{staffId,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据员工登录名查询该员工 -->
+  <select id="selectByStaffName" parameterType="com.zking.pojo.Staff" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_staff
+    where staff_name = #{staffName,jdbcType=INTEGER}
+  </select>
+
+  <!--  添加员工返回角色自增ID  -->
+  <insert id="insertStaff_ID" useGeneratedKeys="true" keyProperty="staffId" parameterType="com.zking.pojo.Staff">
+    insert into tb_staff (staff_name, staff_pwd)
+    values (#{staffName,jdbcType=VARCHAR}, #{staffPwd,jdbcType=VARCHAR})
+  </insert>
+
+
 </mapper>

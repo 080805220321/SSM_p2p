@@ -20,6 +20,7 @@
     <result column="borrowMoney_plan" jdbcType="VARCHAR" property="borrowmoneyPlan" />
     <result column="borrowMoney_money" jdbcType="DECIMAL" property="borrowmoneyMoney" />
   </resultMap>
+
   <sql id="Base_Column_List">
     borrowMoney_id, borrowMoney_synopsis, borrowMoney_borrowMoney, borrowMoney_borrowDate, 
     borrowMoney_interestRate, borrowMoney_use, borrowMoney_source, borrowMoney_way, borrowMoney_risk, 
@@ -235,4 +236,13 @@
       borrowMoney_money = #{borrowmoneyMoney,jdbcType=DECIMAL}
     where borrowMoney_id = #{borrowmoneyId,jdbcType=VARCHAR}
   </update>
+
+  <!-- 查询所有借款标 -->
+  <select id="getUserBorrowMoneyAll" parameterType="java.lang.String" resultType="java.util.HashMap">
+    SELECT ub.borrowMoney_money borrowMoneyMoney, ub.borrowMoney_id borrowMoneyId, ub.borrowMoney_borrowMoney borrowMoneyBorrowMoney, ub.borrowMoney_borrowDate borrowMoneyBorrowDate, ub.borrowMoney_orderDate borrowMoneyOrderDate,ub.borrowMoney_use borrowMoneyUse,ub.borrowMoney_way borrowMoneyWay,ub.borrowMoney_interest borrowMoneyInterest,ub.borrowMoney_state borrowMoneyState,u.user_id userId,u.userMessage_name userMessageName,u.userMessage_truename userMessageTruename FROM tb_userborrowmoney ub,tb_userMessage u WHERE ub.user_id=u.user_id
+  </select>
+
+
+
+
 </mapper>
