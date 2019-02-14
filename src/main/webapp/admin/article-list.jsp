@@ -63,6 +63,7 @@
 					<th width="60">还款方式</th>
 					<th width="60">募集截止日期</th>
 					<th width="60">需还款利息</th>
+					<th width="60">应到账金额</th>
 					<th width="60">状态</th>
 					<th width="120">操作</th>
 				</tr>
@@ -81,6 +82,7 @@
 					<td>${u.borrowMoneyWay}</td>
 					<td>${u.borrowMoneyOrderDate}</td>
 					<td>${u.borrowMoneyInterest} 元</td>
+					<td>${u.borrowMoneyMoney} 元</td>
 					<c:if test="${u.borrowMoneyState==0}">
 						<td class="td-status"><span class="label label-success radius">待审核</span></td>
 						<td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings_0(this,${u.borrowMoneyId})" href="javascript:;" title="审核">审核</a></td>
@@ -255,6 +257,7 @@ $(function(){
                         + '<td>' +item.borrowMoneyWay+ '</td>'
                         + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                         + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+						 + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                         + '<td class="td-status"><span class="label label-success radius">待审核</span></td>'
                         + '<td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings_0(this, '+item.borrowMoneyId+' )" href="javascript:;" title="审核">审核</a></td>';
                     }
@@ -271,6 +274,7 @@ $(function(){
                             + '<td>' +item.borrowMoneyWay+ '</td>'
                             + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                             + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                            + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                             + '<td class="td-status"><span class="label label-success radius">未满标</span></td>'
                             + '<td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings_1(this,'+item.borrowMoneyId+')" href="javascript:;" title="流标">流标</a></td>';
                     }
@@ -287,6 +291,7 @@ $(function(){
                             + '<td>' +item.borrowMoneyWay+ '</td>'
                             + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                             + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                            + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                             + '<td class="td-status"><span class="label label-success radius">已满标</span></td>'
                             + '<td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings_2(this,'+item.borrowMoneyId+')" href="javascript:;" title="放款">放款</a></td>';
                     }
@@ -303,6 +308,7 @@ $(function(){
                             + '<td>' +item.borrowMoneyWay+ '</td>'
                             + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                             + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                            + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                             + '<td class="td-status"><span class="label radius">已流标</span></td>'
                             + '<td class="td-status"><span class="label radius">已流标不能操作</span></td>';
                     }
@@ -319,6 +325,7 @@ $(function(){
                             + '<td>' +item.borrowMoneyWay+ '</td>'
                             + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                             + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                            + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                             + '<td class="td-status"><span class="label radius">已废标</span></td>'
                             + '<td class="td-status"><span class="label radius">已废标不能操作</span></td>';
                     }
@@ -348,6 +355,7 @@ function adminuser(){
                     + '<td>' +item.borrowMoneyWay+ '</td>'
                     + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                     + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                    + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                     + '<td class="td-status"><span class="label label-success radius">待审核</span></td>'
                     + '<td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings_0(this, '+item.borrowMoneyId+' )" href="javascript:;" title="审核">审核</a></td>';
             }
@@ -364,6 +372,7 @@ function adminuser(){
                     + '<td>' +item.borrowMoneyWay+ '</td>'
                     + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                     + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                    + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                     + '<td class="td-status"><span class="label label-success radius">未满标</span></td>'
                     + '<td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings_1(this,'+item.borrowMoneyId+')" href="javascript:;" title="流标">流标</a></td>';
             }
@@ -380,6 +389,7 @@ function adminuser(){
                     + '<td>' +item.borrowMoneyWay+ '</td>'
                     + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                     + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                    + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                     + '<td class="td-status"><span class="label label-success radius">已满标</span></td>'
                     + '<td class="f-14 td-manage"><a style="text-decoration:none" onClick="user_drawings_2(this,'+item.borrowMoneyId+')" href="javascript:;" title="放款">放款</a></td>';
             }
@@ -396,6 +406,7 @@ function adminuser(){
                     + '<td>' +item.borrowMoneyWay+ '</td>'
                     + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                     + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                    + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                     + '<td class="td-status"><span class="label radius">已流标</span></td>'
                     + '<td class="td-status"><span class="label radius">已流标不能操作</span></td>';
             }
@@ -412,6 +423,7 @@ function adminuser(){
                     + '<td>' +item.borrowMoneyWay+ '</td>'
                     + '<td>' +item.borrowMoneyOrderDate+ '</td>'
                     + '<td>' +item.borrowMoneyInterest+ ' 元</td>'
+                    + '<td>'  +item.borrowMoneyMoney+' 元</td>'
                     + '<td class="td-status"><span class="label radius">已废标</span></td>'
                     + '<td class="td-status"><span class="label radius">已废标不能操作</span></td>';
             }
